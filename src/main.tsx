@@ -1,17 +1,18 @@
-import "./index.css";
+import "@unocss/reset/tailwind.css";
+import "uno.css";
 
 import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Root from "./routes/root";
+import App from "./App";
 import Home from "./pages/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <App />,
     children: [
       {
         path: "/",
