@@ -1,10 +1,4 @@
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useState,
-} from "react";
+import { createContext, Dispatch, SetStateAction, useState } from "react";
 
 export type Errors = {
   title: string;
@@ -17,7 +11,7 @@ const FormsContext = createContext<{
   setErrors: Dispatch<SetStateAction<Errors | null>>;
 } | null>(null);
 
-const FormsProvider = ({ children }: { children: ReactNode }) => {
+const FormsProvider = ({ children }: { children: JSX.Element }) => {
   const [errors, setErrors] = useState<Errors | null>(null);
 
   const reset = () => {

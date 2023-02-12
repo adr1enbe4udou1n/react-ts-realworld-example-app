@@ -9,13 +9,7 @@ import {
   getUser,
   ApiValidationException,
 } from "@/api";
-import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "usehooks-ts";
 import { FormsContext } from "./forms";
@@ -38,7 +32,7 @@ const UserContext = createContext<{
   isLoggedIn: boolean;
 } | null>(null);
 
-const UserProvider = ({ children }: { children: ReactNode }) => {
+const UserProvider = ({ children }: { children: JSX.Element }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useLocalStorage<string | null>("token", null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -53,7 +47,7 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   }, [user]);
 
   useEffect(() => {
-    setIsLoggedIn(user != null);
+    setIsLoggedIn(!!token);
   }, [token]);
 
   const fetch = async () => {

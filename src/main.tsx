@@ -15,6 +15,8 @@ import { UserProvider } from "./contexts/user";
 import { FormsProvider } from "./contexts/forms";
 import Settings from "./pages/user/Settings";
 import ArticleCreate from "./pages/articles/ArticleCreate";
+import RequireNoAuth from "./routes/RequireNoAuth";
+import RequireAuth from "./routes/RequireAuth";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -24,10 +26,38 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           <Routes>
             <Route path="/" element={<App />}>
               <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/articles/create" element={<ArticleCreate />} />
+              <Route
+                path="/login"
+                element={
+                  <RequireNoAuth>
+                    <Login />
+                  </RequireNoAuth>
+                }
+              />
+              <Route
+                path="/register"
+                element={
+                  <RequireNoAuth>
+                    <Register />
+                  </RequireNoAuth>
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <RequireAuth>
+                    <Settings />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/articles/create"
+                element={
+                  <RequireAuth>
+                    <ArticleCreate />
+                  </RequireAuth>
+                }
+              />
             </Route>
           </Routes>
         </UserProvider>
