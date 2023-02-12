@@ -5,9 +5,7 @@ import {
   login as loginApi,
   register as registerApi,
   updateUser as updateUserApi,
-  handleValidation,
   getUser,
-  ApiValidationException,
 } from "@/api";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -63,23 +61,17 @@ const UserProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   const login = async (data: { email: string; password: string }) => {
-    try {
-      const response = await handleValidation(loginApi, {
-        user: data,
-      });
+    const response = await formsStore?.handleValidation(loginApi, {
+      user: data,
+    });
 
-      if (!response?.ok) {
-        return;
-      }
-
-      setUser(response.data.user);
-
-      navigate("/");
-    } catch (e) {
-      if (e instanceof ApiValidationException) {
-        formsStore?.setErrors(e.errors);
-      }
+    if (!response?.ok) {
+      return;
     }
+
+    setUser(response.data.user);
+
+    navigate("/");
   };
 
   const register = async (data: {
@@ -87,7 +79,7 @@ const UserProvider = ({ children }: { children: JSX.Element }) => {
     email: string;
     password: string;
   }) => {
-    const response = await handleValidation(registerApi, {
+    const response = await formsStore?.handleValidation(registerApi, {
       user: data,
     });
 
@@ -104,7 +96,7 @@ const UserProvider = ({ children }: { children: JSX.Element }) => {
     bio: string | undefined;
     email: string | undefined;
   }) => {
-    const response = await handleValidation(updateUserApi, {
+    const response = await formsStore?.handleValidation(updateUserApi, {
       user: data,
     });
 
