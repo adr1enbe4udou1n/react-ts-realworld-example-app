@@ -58,9 +58,13 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const fetch = async () => {
     if (!isLoggedIn && token) {
-      const response = await getUser({});
+      try {
+        const response = await getUser({});
 
-      setUser(response.data.user);
+        setUser(response.data.user);
+      } catch (e) {
+        setToken(null);
+      }
     }
   };
 
