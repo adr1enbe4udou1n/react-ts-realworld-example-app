@@ -1,10 +1,37 @@
-import { Fetcher, type Middleware } from "openapi-typescript-fetch";
-import { useLocalStorage } from "usehooks-ts";
+import { Errors } from "@/contexts/forms";
+import {
+  Fetcher,
+  OpArgType,
+  TypedFetch,
+  type Middleware,
+} from "openapi-typescript-fetch";
 
 import type { components, paths } from "./conduit";
 
+export class ApiValidationException extends Error {
+  constructor(public errors: Errors) {
+    super("Validation error");
+  }
+}
+
+const handleValidation = async <T>(
+  operation: TypedFetch<T>,
+  arg: OpArgType<T>
+) => {
+  try {
+    return await operation(arg);
+  } catch (e) {
+    if (e instanceof operation.Error) {
+      const error = e.getActualType();
+      if (error.status === 400) {
+        throw new ApiValidationException(error.data);
+      }
+    }
+  }
+};
+
 const authenticate: Middleware = async (url, init, next) => {
-  const token = useLocalStorage("token", null);
+  const token = localStorage.getItem("token");
 
   if (token) {
     init.headers.set("Authorization", `Token ${token}`);
@@ -74,6 +101,7 @@ const deleteComment = fetcher
 
 export type { Article, Profile, Comment, User };
 export {
+  handleValidation,
   getArticles,
   getArticlesFeed,
   getTags,

@@ -1,17 +1,32 @@
 // create user context
 
-import { User } from "@/api";
+import {
+  User,
+  login as loginApi,
+  register as registerApi,
+  updateUser as updateUserApi,
+  handleValidation,
+} from "@/api";
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
 
-type UserContextType = {
+const UserContext = createContext<{
   user: User | null;
-  login: (user: User) => void;
+  login: (data: { email: string; password: string }) => Promise<void>;
+  register: (data: {
+    username: string;
+    email: string;
+    password: string;
+  }) => Promise<void>;
+  updateUser: (data: {
+    image: string | undefined;
+    username: string | undefined;
+    bio: string | undefined;
+    email: string | undefined;
+  }) => Promise<void>;
   logout: () => void;
   isLoggedIn: boolean;
-};
-
-const UserContext = createContext<UserContextType | null>(null);
+} | null>(null);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -19,17 +34,60 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    setToken(user?.token || null);
+  }, [user]);
+
+  useEffect(() => {
     setIsLoggedIn(!!token);
   }, [token]);
 
-  const login = async (user: User) => {
-    setUser(user);
-    setToken(user.token);
+  const login = async (data: { email: string; password: string }) => {
+    const response = await handleValidation(loginApi, {
+      user: data,
+    });
+
+    if (!response?.ok) {
+      return;
+    }
+
+    setUser(response.data.user);
+  };
+
+  const register = async (data: {
+    username: string;
+    email: string;
+    password: string;
+  }) => {
+    const response = await handleValidation(registerApi, {
+      user: data,
+    });
+
+    if (!response?.ok) {
+      return;
+    }
+
+    setUser(response.data.user);
+  };
+
+  const updateUser = async (data: {
+    image: string | undefined;
+    username: string | undefined;
+    bio: string | undefined;
+    email: string | undefined;
+  }) => {
+    const response = await handleValidation(updateUserApi, {
+      user: data,
+    });
+
+    if (!response?.ok) {
+      return;
+    }
+
+    setUser(response.data.user);
   };
 
   const logout = () => {
     setUser(null);
-    setToken(null);
   };
 
   return (
@@ -37,6 +95,8 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
       value={{
         user,
         login,
+        register,
+        updateUser,
         logout,
         isLoggedIn,
       }}

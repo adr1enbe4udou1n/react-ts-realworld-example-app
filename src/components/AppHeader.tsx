@@ -1,6 +1,6 @@
 import { UserContext } from "@/contexts/user";
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type MenuItem = {
   icon?: string;
@@ -13,6 +13,8 @@ const AppHeader = () => {
   const userStore = useContext(UserContext);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (userStore?.isLoggedIn) {
       setMenuItems([
@@ -22,7 +24,13 @@ const AppHeader = () => {
           link: "/articles/create",
         },
         { name: "Settings", link: "/settings" },
-        { name: "Logout", click: () => userStore?.logout() },
+        {
+          name: "Logout",
+          click: () => {
+            userStore?.logout();
+            navigate("/");
+          },
+        },
       ]);
 
       return;
