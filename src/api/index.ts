@@ -34,7 +34,7 @@ const authenticate: Middleware = async (url, init, next) => {
   const token = localStorage.getItem("token");
 
   if (token) {
-    init.headers.set("Authorization", `Token ${token}`);
+    init.headers.set("Authorization", `Token ${token.slice(1, -1)}`);
   }
   const response = await next(url, init);
   return response;

@@ -6,6 +6,7 @@ import {
   register as registerApi,
   updateUser as updateUserApi,
   handleValidation,
+  getUser,
 } from "@/api";
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
@@ -34,12 +35,22 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    setToken(user?.token || null);
+    if (user?.token) {
+      setToken(user.token);
+    }
   }, [user]);
 
   useEffect(() => {
-    setIsLoggedIn(!!token);
+    setIsLoggedIn(user != null);
   }, [token]);
+
+  const fetch = async () => {
+    if (!isLoggedIn && token) {
+      const response = await getUser({});
+
+      setUser(response.data.user);
+    }
+  };
 
   const login = async (data: { email: string; password: string }) => {
     const response = await handleValidation(loginApi, {
@@ -88,7 +99,10 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     setUser(null);
+    setToken(null);
   };
+
+  fetch();
 
   return (
     <UserContext.Provider
