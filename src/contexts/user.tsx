@@ -7,9 +7,18 @@ import {
   updateUser as updateUserApi,
   handleValidation,
   getUser,
+  ApiValidationException,
 } from "@/api";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "usehooks-ts";
+import { FormsContext } from "./forms";
 
 const UserContext = createContext<{
   user: User | null;
@@ -24,7 +33,7 @@ const UserContext = createContext<{
     username: string | undefined;
     bio: string | undefined;
     email: string | undefined;
-  }) => Promise<void>;
+  }) => Promise<boolean>;
   logout: () => void;
   isLoggedIn: boolean;
 } | null>(null);
@@ -33,6 +42,9 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useLocalStorage<string | null>("token", null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const formsStore = useContext(FormsContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user?.token) {
@@ -53,15 +65,23 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const login = async (data: { email: string; password: string }) => {
-    const response = await handleValidation(loginApi, {
-      user: data,
-    });
+    try {
+      const response = await handleValidation(loginApi, {
+        user: data,
+      });
 
-    if (!response?.ok) {
-      return;
+      if (!response?.ok) {
+        return;
+      }
+
+      setUser(response.data.user);
+
+      navigate("/");
+    } catch (e) {
+      if (e instanceof ApiValidationException) {
+        formsStore?.setErrors(e.errors);
+      }
     }
-
-    setUser(response.data.user);
   };
 
   const register = async (data: {
@@ -91,10 +111,11 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     });
 
     if (!response?.ok) {
-      return;
+      return false;
     }
 
     setUser(response.data.user);
+    return true;
   };
 
   const logout = () => {
