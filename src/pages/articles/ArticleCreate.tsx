@@ -1,8 +1,12 @@
-import AlertMessage from "@/components/AlertMessage";
+import { Article, createArticle, handleValidation } from "@/api";
+import FormValidation from "@/components/FormValidation";
 import TagInput from "@/components/TagInput";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ArticleCreate = () => {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState<{
     title: string;
     description: string;
@@ -15,6 +19,10 @@ const ArticleCreate = () => {
     tagList: [],
   });
 
+  const onSuccess = async ({ article }: { article: Article }) => {
+    navigate(`/articles/${article.slug}`);
+  };
+
   return (
     <div className="container flex flex-col mb-8">
       <div className="lg:w-2xl sm:mx-auto">
@@ -23,13 +31,18 @@ const ArticleCreate = () => {
             Your new post
           </h1>
         </div>
-        <form
+        <FormValidation
           className="flex flex-col gap-4"
-          onSubmit={async (e) => {
-            e.preventDefault();
-          }}
+          action={() =>
+            handleValidation(
+              createArticle,
+              {
+                article: form,
+              },
+              onSuccess
+            )
+          }
         >
-          <AlertMessage />
           <div>
             <input
               type="text"
@@ -66,7 +79,7 @@ const ArticleCreate = () => {
               Create Post
             </button>
           </div>
-        </form>
+        </FormValidation>
       </div>
     </div>
   );

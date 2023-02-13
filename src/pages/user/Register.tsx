@@ -1,16 +1,23 @@
-import AlertMessage from "@/components/AlertMessage";
+import { handleValidation, register, User } from "@/api";
+import FormValidation from "@/components/FormValidation";
 import { UserContext } from "@/contexts/user";
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const userStore = useContext(UserContext);
+  const navigate = useNavigate();
 
   const [form, setForm] = useState<{
     username: string;
     email: string;
     password: string;
   }>({ username: "", email: "", password: "" });
+
+  const onSuccess = ({ user }: { user: User }) => {
+    userStore?.setUser(user);
+    navigate("/");
+  };
 
   return (
     <div className="container flex flex-col mb-8">
@@ -23,14 +30,10 @@ const Register = () => {
             Have an account ?
           </Link>
         </div>
-        <form
+        <FormValidation
           className="flex flex-col gap-4"
-          onSubmit={async (e) => {
-            e.preventDefault();
-            await userStore?.register(form);
-          }}
+          action={() => handleValidation(register, { user: form }, onSuccess)}
         >
-          <AlertMessage />
           <div>
             <input
               className="form-control"
@@ -64,7 +67,7 @@ const Register = () => {
               Sign up
             </button>
           </div>
-        </form>
+        </FormValidation>
       </div>
     </div>
   );

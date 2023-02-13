@@ -1,42 +1,21 @@
 // create user context
 
-import {
-  User,
-  login as loginApi,
-  register as registerApi,
-  updateUser as updateUserApi,
-  getUser,
-} from "@/api";
-import { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { User, getUser } from "@/api";
+import { createContext, useEffect, useState } from "react";
 import { useLocalStorage } from "usehooks-ts";
-import { FormsContext } from "./forms";
 
 const UserContext = createContext<{
   user: User | null;
-  login: (data: { email: string; password: string }) => Promise<void>;
-  register: (data: {
-    username: string;
-    email: string;
-    password: string;
-  }) => Promise<void>;
-  updateUser: (data: {
-    image: string | undefined;
-    username: string | undefined;
-    bio: string | undefined;
-    email: string | undefined;
-  }) => Promise<boolean>;
+  setUser: (user: User) => void;
   logout: () => void;
   isLoggedIn: boolean;
+  fetch: () => Promise<void>;
 } | null>(null);
 
 const UserProvider = ({ children }: { children: JSX.Element }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useLocalStorage<string | null>("token", null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const formsStore = useContext(FormsContext);
-  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(!!token);
 
   useEffect(() => {
     if (user?.token) {
@@ -49,63 +28,16 @@ const UserProvider = ({ children }: { children: JSX.Element }) => {
   }, [token]);
 
   const fetch = async () => {
-    if (!isLoggedIn && token) {
-      try {
-        const response = await getUser({});
-
-        setUser(response.data.user);
-      } catch (e) {
-        setToken(null);
-      }
-    }
-  };
-
-  const login = async (data: { email: string; password: string }) => {
-    const response = await formsStore?.handleValidation(loginApi, {
-      user: data,
-    });
-
-    if (!response?.ok) {
+    if (!token) {
       return;
     }
+    try {
+      const response = await getUser({});
 
-    setUser(response.data.user);
-
-    navigate("/");
-  };
-
-  const register = async (data: {
-    username: string;
-    email: string;
-    password: string;
-  }) => {
-    const response = await formsStore?.handleValidation(registerApi, {
-      user: data,
-    });
-
-    if (!response?.ok) {
-      return;
+      setUser(response.data.user);
+    } catch (e) {
+      setToken(null);
     }
-
-    setUser(response.data.user);
-  };
-
-  const updateUser = async (data: {
-    image: string | undefined;
-    username: string | undefined;
-    bio: string | undefined;
-    email: string | undefined;
-  }) => {
-    const response = await formsStore?.handleValidation(updateUserApi, {
-      user: data,
-    });
-
-    if (!response?.ok) {
-      return false;
-    }
-
-    setUser(response.data.user);
-    return true;
   };
 
   const logout = () => {
@@ -113,16 +45,13 @@ const UserProvider = ({ children }: { children: JSX.Element }) => {
     setToken(null);
   };
 
-  fetch();
-
   return (
     <UserContext.Provider
       value={{
         user,
-        login,
-        register,
-        updateUser,
+        setUser,
         logout,
+        fetch,
         isLoggedIn,
       }}
     >

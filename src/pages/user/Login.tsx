@@ -1,15 +1,22 @@
-import AlertMessage from "@/components/AlertMessage";
+import { handleValidation, login, User } from "@/api";
+import FormValidation from "@/components/FormValidation";
 import { UserContext } from "@/contexts/user";
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const userStore = useContext(UserContext);
+  const navigate = useNavigate();
 
   const [form, setForm] = useState<{
     email: string;
     password: string;
   }>({ email: "", password: "" });
+
+  const onSuccess = ({ user }: { user: User }) => {
+    userStore?.setUser(user);
+    navigate("/");
+  };
 
   return (
     <div className="container flex flex-col mb-8">
@@ -22,14 +29,10 @@ const Login = () => {
             No account yet ?
           </Link>
         </div>
-        <form
+        <FormValidation
           className="flex flex-col gap-4"
-          onSubmit={async (e) => {
-            e.preventDefault();
-            await userStore?.login(form);
-          }}
+          action={() => handleValidation(login, { user: form }, onSuccess)}
         >
-          <AlertMessage />
           <div>
             <input
               type="email"
@@ -54,7 +57,7 @@ const Login = () => {
               Login
             </button>
           </div>
-        </form>
+        </FormValidation>
       </div>
     </div>
   );

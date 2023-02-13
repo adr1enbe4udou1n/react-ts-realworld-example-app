@@ -1,4 +1,5 @@
-import AlertMessage from "@/components/AlertMessage";
+import { handleValidation, updateUser, User } from "@/api";
+import FormValidation from "@/components/FormValidation";
 import SuccessMessage from "@/components/SuccessMessage";
 import { UserContext } from "@/contexts/user";
 import { useContext, useEffect, useState } from "react";
@@ -30,6 +31,11 @@ const Settings = () => {
     }
   }, [userStore?.user]);
 
+  const onSuccess = ({ user }: { user: User }) => {
+    userStore?.setUser(user);
+    setSuccess(true);
+  };
+
   return (
     <div className="container flex flex-col mb-8">
       <div className="lg:w-2xl sm:mx-auto">
@@ -38,21 +44,17 @@ const Settings = () => {
             Your settings
           </h1>
         </div>
-        <form
+        <FormValidation
           className="flex flex-col gap-4"
-          onSubmit={async (e) => {
-            e.preventDefault();
-            if (await userStore?.updateUser(form)) {
-              setSuccess(true);
-            }
-          }}
+          action={() => handleValidation(updateUser, { user: form }, onSuccess)}
         >
-          {success && (
-            <SuccessMessage>
-              Your settings have been updated successfully
-            </SuccessMessage>
-          )}
-          <AlertMessage />
+          <>
+            {success && (
+              <SuccessMessage>
+                Your settings have been updated successfully
+              </SuccessMessage>
+            )}
+          </>
           <div>
             <input
               className="form-control"
@@ -94,7 +96,7 @@ const Settings = () => {
               Update Settings
             </button>
           </div>
-        </form>
+        </FormValidation>
       </div>
     </div>
   );
