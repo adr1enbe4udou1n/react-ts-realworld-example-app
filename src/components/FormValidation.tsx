@@ -1,10 +1,6 @@
+import { ValidationProblemDetails } from "@/api";
 import { FormEvent, useState } from "react";
 import AlertMessage from "./AlertMessage";
-
-export type Errors = {
-  title: string;
-  errors: { [key: string]: string[] };
-};
 
 const FormValidation = ({
   children,
@@ -12,10 +8,10 @@ const FormValidation = ({
   className,
 }: {
   children: JSX.Element[];
-  action: () => Promise<Errors | null>;
+  action: () => Promise<ValidationProblemDetails | undefined>;
   className?: string;
 }) => {
-  const [errors, setErrors] = useState<Errors | null>(null);
+  const [errors, setErrors] = useState<ValidationProblemDetails | null>(null);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

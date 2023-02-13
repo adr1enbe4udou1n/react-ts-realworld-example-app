@@ -1,10 +1,10 @@
-import { Errors } from "./FormValidation";
+import { ValidationProblemDetails } from "@/api";
 
 const AlertMessage = ({
   errors,
   onClose,
 }: {
-  errors?: Errors | null;
+  errors?: ValidationProblemDetails | null;
   onClose?: () => void;
 }) => {
   if (errors) {
@@ -24,7 +24,7 @@ const AlertMessage = ({
             <li key={name}>
               <strong>{name} :</strong>
               <ul className="list-inside list-disc">
-                {errors?.errors[name].map((error) => (
+                {errors?.errors[name]?.map((error) => (
                   <li key={error}>{error}</li>
                 ))}
               </ul>
