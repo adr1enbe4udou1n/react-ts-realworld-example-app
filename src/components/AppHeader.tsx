@@ -1,6 +1,7 @@
 import { UserContext } from "@/contexts/user";
+import classNames from "classnames";
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 type MenuItem = {
   icon?: string;
@@ -58,12 +59,20 @@ const AppHeader = () => {
             {menuItems.map((item, i) => {
               if (item.link) {
                 return (
-                  <Link key={i} to={item.link} className="flex items-center">
+                  <NavLink
+                    key={i}
+                    to={item.link}
+                    className={({ isActive }) =>
+                      classNames("flex items-center", {
+                        "opacity-50": !isActive,
+                      })
+                    }
+                  >
                     {item.icon && (
                       <i className={`inline-block mr-2 ${item.icon}`}></i>
                     )}
                     {item.name}
-                  </Link>
+                  </NavLink>
                 );
               } else {
                 return (
