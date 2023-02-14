@@ -1,6 +1,9 @@
 import ArticlesNav from "@/components/ArticlesNav";
+import PostsList from "@/components/PostsList";
+import { useState } from "react";
 
 const Home = () => {
+  const [currentTag, setCurrentTag] = useState("");
   const menuItems = [
     {
       name: "Your Feed",
@@ -21,6 +24,7 @@ const Home = () => {
       <div className="container flex flex-col md:flex-row mb-8 gap-8">
         <div className="md:flex-1">
           <ArticlesNav items={menuItems} />
+          <PostsList tag={currentTag} />
         </div>
       </div>
     </>
