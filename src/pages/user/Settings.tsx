@@ -1,4 +1,5 @@
 import { handleValidation, updateUser, User } from "@/api";
+import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
 import SuccessMessage from "@/components/SuccessMessage";
 import { UserContext } from "@/contexts/user";
@@ -69,6 +70,7 @@ const Settings = () => {
               className="form-control"
               type="text"
               placeholder="Your Name"
+              required
               value={form.username}
               onChange={(e) => setForm({ ...form, username: e.target.value })}
             />
@@ -86,15 +88,14 @@ const Settings = () => {
               type="email"
               placeholder="Email"
               className="form-control"
+              required
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
           </div>
 
           <div className="flex justify-end">
-            <button className="btn btn-primary" type="submit">
-              Update Settings
-            </button>
+            <BaseButton>Update Settings</BaseButton>
           </div>
         </FormValidation>
       </div>

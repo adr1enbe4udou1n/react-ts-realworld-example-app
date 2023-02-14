@@ -1,4 +1,5 @@
 import { handleValidation, login, User } from "@/api";
+import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
 import { UserContext } from "@/contexts/user";
 import { useContext, useState } from "react";
@@ -38,6 +39,7 @@ const Login = () => {
               type="email"
               placeholder="Email"
               className="form-control"
+              required
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
@@ -47,15 +49,14 @@ const Login = () => {
               type="password"
               placeholder="Password"
               className="form-control"
+              required
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
             />
           </div>
 
           <div className="flex justify-end">
-            <button className="btn btn-primary" type="submit">
-              Login
-            </button>
+            <BaseButton>Login</BaseButton>
           </div>
         </FormValidation>
       </div>

@@ -1,4 +1,5 @@
 import { Article, createArticle, handleValidation } from "@/api";
+import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
 import TagInput from "@/components/TagInput";
 import { useState } from "react";
@@ -48,6 +49,7 @@ const ArticleCreate = () => {
               type="text"
               placeholder="Post Title"
               className="form-control"
+              required
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
             />
@@ -56,6 +58,7 @@ const ArticleCreate = () => {
             <textarea
               placeholder="Short description"
               className="form-control"
+              required
               value={form.description}
               onChange={(e) =>
                 setForm({ ...form, description: e.target.value })
@@ -66,6 +69,7 @@ const ArticleCreate = () => {
             <textarea
               placeholder="Write your post (in markdown)"
               className="form-control h-100"
+              required
               value={form.body}
               onChange={(e) => setForm({ ...form, body: e.target.value })}
             />
@@ -75,9 +79,7 @@ const ArticleCreate = () => {
           </div>
 
           <div className="flex justify-end">
-            <button className="btn btn-primary" type="submit">
-              Create Post
-            </button>
+            <BaseButton>Create Post</BaseButton>
           </div>
         </FormValidation>
       </div>

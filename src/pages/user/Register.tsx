@@ -1,4 +1,5 @@
 import { handleValidation, register, User } from "@/api";
+import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
 import { UserContext } from "@/contexts/user";
 import { useContext, useState } from "react";
@@ -39,6 +40,7 @@ const Register = () => {
               className="form-control"
               type="text"
               placeholder="Your Name"
+              required
               value={form.username}
               onChange={(e) => setForm({ ...form, username: e.target.value })}
             />
@@ -48,6 +50,7 @@ const Register = () => {
               type="email"
               placeholder="Email"
               className="form-control"
+              required
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
@@ -57,15 +60,14 @@ const Register = () => {
               type="password"
               placeholder="Password"
               className="form-control"
+              required
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
             />
           </div>
 
           <div className="flex justify-end">
-            <button className="btn btn-primary" type="submit">
-              Sign up
-            </button>
+            <BaseButton>Sign up</BaseButton>
           </div>
         </FormValidation>
       </div>
