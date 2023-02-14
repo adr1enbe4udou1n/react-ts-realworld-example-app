@@ -2,7 +2,7 @@
 
 import { User, getUser } from "@/api";
 import { createContext, useEffect, useState } from "react";
-import { useLocalStorage } from "usehooks-ts";
+import useLocalStorageState from "use-local-storage-state";
 
 const UserContext = createContext<{
   user: User | null;
@@ -14,7 +14,7 @@ const UserContext = createContext<{
 
 const UserProvider = ({ children }: { children: JSX.Element }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useLocalStorage<string | null>("token", null);
+  const [token, setToken] = useLocalStorageState("token");
   const [isLoggedIn, setIsLoggedIn] = useState(!!token);
 
   useEffect(() => {

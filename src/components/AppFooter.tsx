@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { useDarkMode } from "usehooks-ts";
+import useLocalStorageState from "use-local-storage-state";
 
 const AppFooter = () => {
-  const { isDarkMode, enable, disable } = useDarkMode();
+  const [isDarkMode, setColorScheme] =
+    useLocalStorageState<boolean>("color-scheme-dark");
 
   return (
     <footer className="bg-gray-100 dark:bg-gray-800">
@@ -21,7 +22,7 @@ const AppFooter = () => {
           <button
             className="flex items-center justify-center ml-4 dark:text-white"
             onClick={() => {
-              isDarkMode ? disable() : enable();
+              setColorScheme(!isDarkMode);
               document.documentElement.classList.toggle("dark", !isDarkMode);
             }}
           >

@@ -9,7 +9,7 @@
     <script>
       (function () {
         const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-        const setting = localStorage.getItem('usehooks-ts-dark-mode') || 'auto'
+        const setting = localStorage.getItem('color-scheme-dark')
         if (setting === true || (prefersDark && setting !== 'false'))
           document.documentElement.classList.toggle('dark', true)
       })()
