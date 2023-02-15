@@ -16,6 +16,7 @@ import Settings from "./pages/user/Settings";
 import ArticleCreate from "./pages/articles/ArticleCreate";
 import RequireNoAuth from "./routes/RequireNoAuth";
 import RequireAuth from "./routes/RequireAuth";
+import Feed from "./pages/Feed";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/feed",
+        element: (
+          <RequireAuth>
+            <Feed />
+          </RequireAuth>
+        ),
       },
       {
         path: "/login",

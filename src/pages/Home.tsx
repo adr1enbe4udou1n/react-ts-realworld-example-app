@@ -1,33 +1,19 @@
-import ArticlesNav from "@/components/ArticlesNav";
-import PostsList from "@/components/PostsList";
+import HomeLayout from "@/components/HomeLayout";
+import TagList from "@/components/TagList";
 import { useState } from "react";
 
 const Home = () => {
-  const [currentTag, setCurrentTag] = useState("");
-  const menuItems = [
-    {
-      name: "Your Feed",
-      link: "/feed",
-    },
-    {
-      name: "Global Feed",
-      link: "/",
-    },
-  ];
+  const [currentTag, setCurrentTag] = useState<string | null>(null);
 
   return (
-    <>
-      <div className="bg-green text-white text-center py-8 mb-8">
-        <h1 className="font-brand font-bold text-5xl mb-4">conduit</h1>
-        <p className="font-sans">A place to share your knowledge.</p>
-      </div>
-      <div className="container flex flex-col md:flex-row mb-8 gap-8">
-        <div className="md:flex-1">
-          <ArticlesNav items={menuItems} />
-          <PostsList tag={currentTag} />
+    <HomeLayout tag={currentTag}>
+      <div className="w-70">
+        <div className="bg-gray-100 dark:bg-gray-800 font-sans p-2">
+          <h3 className="mb-2 dark:text-white">Popular Tags</h3>
+          <TagList onSelect={setCurrentTag} />
         </div>
       </div>
-    </>
+    </HomeLayout>
   );
 };
 
