@@ -17,9 +17,9 @@ import ArticleCreate from "./pages/articles/ArticleCreate";
 import RequireNoAuth from "./routes/RequireNoAuth";
 import RequireAuth from "./routes/RequireAuth";
 import Feed from "./pages/Feed";
-import Profile from "./pages/profiles/Profile";
+import ProfileShow from "./pages/profiles/ProfileShow";
 import ProfileFavorites from "./pages/profiles/ProfileFavorites";
-import Article from "./pages/articles/Article";
+import ArticleShow from "./pages/articles/ArticleShow";
 import ArticleEdit from "./pages/articles/ArticleEdit";
 
 const router = createBrowserRouter([
@@ -76,7 +76,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/articles/:slug",
-            element: <Article />,
+            element: <ArticleShow />,
           },
           {
             path: "/articles/:slug/edit",
@@ -93,7 +93,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/profiles/:username",
-            element: <Profile />,
+            element: <ProfileShow />,
           },
           {
             path: "/profiles/:username/favorites",

@@ -2,7 +2,7 @@ import AuthorLayout from "@/components/AuthorLayout";
 import PostsList from "@/components/PostsList";
 import { useParams } from "react-router-dom";
 
-const Profile = () => {
+const ProfileShow = () => {
   const { username } = useParams<string>();
 
   if (!username) {
@@ -16,4 +16,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfileShow;

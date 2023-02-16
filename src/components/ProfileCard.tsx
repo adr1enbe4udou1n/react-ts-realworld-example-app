@@ -1,15 +1,18 @@
 import { format } from "date-fns";
 import { Profile } from "@/api";
 import { Link } from "react-router-dom";
+import classNames from "classnames";
 
 const ProfileCard = ({
   author,
   date,
   inline = false,
+  className,
 }: {
   author: Profile;
   date: string;
   inline?: boolean;
+  className?: string | undefined;
 }) => {
   const getDate = (date: string) => {
     const month = new Date(date).toLocaleString("en", { month: "long" });
@@ -19,7 +22,7 @@ const ProfileCard = ({
   return (
     <Link
       to={`/profiles/${author.username}`}
-      className="flex items-center gap-3"
+      className={classNames(className, "flex items-center gap-3")}
     >
       {inline ? (
         <>
