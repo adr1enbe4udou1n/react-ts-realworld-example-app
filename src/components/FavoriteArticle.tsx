@@ -17,17 +17,18 @@ const FavoriteArticle = ({
   const navigate = useNavigate();
 
   const [counter, setCounter] = useState(article.favoritesCount);
-  const [icon, setIcon] = useState("");
-  const [label, setLabel] = useState("");
+
+  const icon = article.favorited
+    ? "i-carbon-favorite-filled"
+    : "i-carbon-favorite";
+  const label = article.favorited ? "Unfavorite" : "Favorite";
 
   useEffect(() => {
     if (article.favorited) {
-      setIcon("i-carbon-favorite-filled");
-      setLabel("Unfavorite");
+      setCounter(counter - 1);
       return;
     }
-    setIcon("i-carbon-favorite");
-    setLabel("Favorite");
+    setCounter(counter + 1);
   }, [article.favorited]);
 
   const toggleFavorite = async () => {
@@ -37,7 +38,6 @@ const FavoriteArticle = ({
 
     if (article.favorited) {
       await unfavoriteArticle({ slug: article.slug });
-      setCounter(counter - 1);
       if (onFavorite) {
         onFavorite(false);
       }
@@ -46,7 +46,6 @@ const FavoriteArticle = ({
     }
 
     await favoriteArticle({ slug: article.slug });
-    setCounter(counter + 1);
     if (onFavorite) {
       onFavorite(true);
     }

@@ -1,5 +1,6 @@
 import { Article, getArticles, getArticlesFeed } from "@/api";
 import { useEffect, useState } from "react";
+import Pagination from "./Pagination";
 import PostCard from "./PostCard";
 
 const PostsList = ({
@@ -52,6 +53,12 @@ const PostsList = ({
       {articles.map((article, i) => (
         <PostCard key={i} article={article} tag={tag} />
       ))}
+      <Pagination
+        page={page}
+        limit={limit}
+        total={total}
+        fetchData={fetchData}
+      />
     </>
   );
 };

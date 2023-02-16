@@ -7,10 +7,7 @@ const TagList = ({ onSelect }: { onSelect: (tag: string) => void }) => {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
   useEffect(() => {
-    (async () => {
-      const { data } = await getTags({});
-      setTags(data.tags);
-    })();
+    getTags({}).then(({ data }) => setTags(data.tags));
   }, []);
 
   return (
