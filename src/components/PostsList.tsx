@@ -21,7 +21,7 @@ const PostsList = ({
 
   useEffect(() => {
     fetchData({ currentPage: 1, currentPageSize: 10 });
-  }, []);
+  }, [tag]);
 
   const fetchData = async ({
     currentPage,

@@ -2,7 +2,7 @@ import { getTags } from "@/api";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 
-const TagList = ({ onSelect }: { onSelect: (tag: string) => void }) => {
+const TagList = ({ onSelect }: { onSelect: (tag: string | null) => void }) => {
   const [tags, setTags] = useState<string[]>([]);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
@@ -23,8 +23,9 @@ const TagList = ({ onSelect }: { onSelect: (tag: string) => void }) => {
               }
             )}
             onClick={() => {
-              setSelectedTag(t);
-              onSelect(t);
+              const tag = t === selectedTag ? null : t;
+              setSelectedTag(tag);
+              onSelect(tag);
             }}
           >
             {t}

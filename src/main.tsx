@@ -17,6 +17,10 @@ import ArticleCreate from "./pages/articles/ArticleCreate";
 import RequireNoAuth from "./routes/RequireNoAuth";
 import RequireAuth from "./routes/RequireAuth";
 import Feed from "./pages/Feed";
+import Profile from "./pages/profiles/Profile";
+import ProfileFavorites from "./pages/profiles/ProfileFavorites";
+import Article from "./pages/articles/Article";
+import ArticleEdit from "./pages/articles/ArticleEdit";
 
 const router = createBrowserRouter([
   {
@@ -60,12 +64,42 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/articles/create",
-        element: (
-          <RequireAuth>
-            <ArticleCreate />
-          </RequireAuth>
-        ),
+        path: "/articles",
+        children: [
+          {
+            path: "/articles/create",
+            element: (
+              <RequireAuth>
+                <ArticleCreate />
+              </RequireAuth>
+            ),
+          },
+          {
+            path: "/articles/:slug",
+            element: <Article />,
+          },
+          {
+            path: "/articles/:slug/edit",
+            element: (
+              <RequireAuth>
+                <ArticleEdit />
+              </RequireAuth>
+            ),
+          },
+        ],
+      },
+      {
+        path: "/profiles",
+        children: [
+          {
+            path: "/profiles/:username",
+            element: <Profile />,
+          },
+          {
+            path: "/profiles/:username/favorites",
+            element: <ProfileFavorites />,
+          },
+        ],
       },
     ],
   },
