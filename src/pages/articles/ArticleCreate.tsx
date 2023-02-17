@@ -75,7 +75,12 @@ const ArticleCreate = () => {
             />
           </div>
           <div>
-            <TagInput v-model="form.tagList" />
+            {form.tagList.map((tag, i) => (
+              <span key={i} className="inline-flex">
+                {tag}
+              </span>
+            ))}
+            <TagInput onChange={(tagList) => setForm({ ...form, tagList })} />
           </div>
 
           <div className="flex justify-end">
