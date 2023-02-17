@@ -1,19 +1,22 @@
 import { Article } from "@/api";
+import classNames from "classnames";
 import FavoriteArticle from "./FavoriteArticle";
 import FollowProfile from "./FollowProfile";
 import ProfileCard from "./ProfileCard";
 
 const PostAuthor = ({
   article,
+  className,
   onFollow,
   onFavorite,
 }: {
   article: Article;
+  className?: string;
   onFollow: () => void;
   onFavorite: () => void;
 }) => {
   return (
-    <div className="flex items-center">
+    <div className={classNames(className, "flex items-center")}>
       <ProfileCard
         author={article.author}
         date={article.createdAt}

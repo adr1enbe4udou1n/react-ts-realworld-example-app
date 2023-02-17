@@ -114,11 +114,11 @@ const favoriteArticleToggle = async (article: Article) => {
 
 const followProfileToggle = async (profile: Profile) => {
   if (profile.following) {
-    await followProfile({ username: profile.username });
+    await unfollowProfile({ username: profile.username });
     profile.following = false;
     return;
   }
-  await unfollowProfile({ username: profile.username });
+  await followProfile({ username: profile.username });
   profile.following = true;
 };
 
