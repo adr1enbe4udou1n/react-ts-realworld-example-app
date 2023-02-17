@@ -3,7 +3,7 @@ import PostsList from "@/components/PostsList";
 import { useParams } from "react-router-dom";
 
 const ProfileShow = () => {
-  const { username } = useParams<string>();
+  const { username } = useParams<{ username: string }>();
 
   if (!username) {
     return null;

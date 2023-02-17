@@ -19,7 +19,7 @@ import { useNavigate, useParams } from "react-router-dom";
 const ArticleShow = () => {
   const userStore = useContext(UserContext);
   const navigate = useNavigate();
-  const { slug } = useParams<string>();
+  const { slug } = useParams<{ slug: string }>();
 
   if (!slug) {
     return null;
