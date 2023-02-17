@@ -1,6 +1,6 @@
-import { Article, favoriteArticle, unfavoriteArticle } from "@/api";
+import { Article } from "@/api";
 import { UserContext } from "@/contexts/user";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import BaseButton from "./BaseButton";
 
@@ -11,43 +11,23 @@ const FavoriteArticle = ({
 }: {
   article: Article;
   full?: boolean;
-  onFavorite?: (favorite: boolean) => void;
+  onFavorite?: () => void;
 }) => {
   const userStore = useContext(UserContext);
   const navigate = useNavigate();
-
-  const [counter, setCounter] = useState(article.favoritesCount);
 
   const icon = article.favorited
     ? "i-carbon-favorite-filled"
     : "i-carbon-favorite";
   const label = article.favorited ? "Unfavorite" : "Favorite";
 
-  useEffect(() => {
-    if (article.favorited) {
-      setCounter(counter - 1);
-      return;
-    }
-    setCounter(counter + 1);
-  }, [article.favorited]);
-
   const toggleFavorite = async () => {
     if (!userStore?.isLoggedIn) {
       navigate("/login");
     }
 
-    if (article.favorited) {
-      await unfavoriteArticle({ slug: article.slug });
-      if (onFavorite) {
-        onFavorite(false);
-      }
-
-      return;
-    }
-
-    await favoriteArticle({ slug: article.slug });
     if (onFavorite) {
-      onFavorite(true);
+      onFavorite();
     }
   };
 
@@ -59,7 +39,7 @@ const FavoriteArticle = ({
       onClick={toggleFavorite}
     >
       <i className={icon}></i>
-      {`${label} Post (${counter})`}
+      {`${label} Post (${article.favoritesCount})`}
     </BaseButton>
   ) : (
     <button
@@ -68,7 +48,7 @@ const FavoriteArticle = ({
       onClick={toggleFavorite}
     >
       <i className={`text-xs mr-1 ${icon}`}></i>
-      {counter}
+      {article.favoritesCount}
     </button>
   );
 };

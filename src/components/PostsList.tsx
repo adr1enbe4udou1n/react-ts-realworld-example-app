@@ -1,4 +1,9 @@
-import { Article, getArticles, getArticlesFeed } from "@/api";
+import {
+  Article,
+  favoriteArticleToggle,
+  getArticles,
+  getArticlesFeed,
+} from "@/api";
 import { useEffect, useState } from "react";
 import Pagination from "./Pagination";
 import PostCard from "./PostCard";
@@ -51,7 +56,15 @@ const PostsList = ({
   return (
     <>
       {articles.map((article, i) => (
-        <PostCard key={i} article={article} tag={tag} />
+        <PostCard
+          key={i}
+          article={article}
+          tag={tag}
+          onFavorite={async () => {
+            await favoriteArticleToggle(article);
+            setArticles([...articles, article]);
+          }}
+        />
       ))}
       <Pagination
         page={page}

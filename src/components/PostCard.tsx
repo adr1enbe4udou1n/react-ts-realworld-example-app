@@ -11,7 +11,7 @@ const PostCard = ({
 }: {
   article: Article;
   tag: string | null;
-  onFavorite?: (favorite: boolean) => void;
+  onFavorite?: () => void;
 }) => {
   return (
     <div className="border-t border-gray-200 py-4">

@@ -1,4 +1,4 @@
-import { getProfile, Profile } from "@/api";
+import { followProfileToggle, getProfile, Profile } from "@/api";
 import { useEffect, useState } from "react";
 import ArticlesNav from "./ArticlesNav";
 import FollowProfile from "./FollowProfile";
@@ -50,7 +50,10 @@ const AuthorLayout = ({
           <p className="mx-auto max-w-140 text-gray-300 mb-4">{profile.bio}</p>
           <FollowProfile
             profile={profile}
-            onFollow={(following) => setProfile({ ...profile, following })}
+            onFollow={async () => {
+              await followProfileToggle(profile);
+              setProfile(profile);
+            }}
           />
         </div>
       </div>

@@ -9,8 +9,8 @@ const PostAuthor = ({
   onFavorite,
 }: {
   article: Article;
-  onFollow: (following: boolean) => void;
-  onFavorite: (favorite: boolean) => void;
+  onFollow: () => void;
+  onFavorite: () => void;
 }) => {
   return (
     <div className="flex items-center">
@@ -20,16 +20,13 @@ const PostAuthor = ({
         className="mr-4"
       />
       <div className="mr-2">
-        <FollowProfile
-          profile={article.author}
-          onFollow={(following) => onFollow(following)}
-        />
+        <FollowProfile profile={article.author} onFollow={onFollow} />
       </div>
       <div>
         <FavoriteArticle
           article={article}
           full={true}
-          onFavorite={(favorite) => onFavorite(favorite)}
+          onFavorite={onFavorite}
         />
       </div>
     </div>

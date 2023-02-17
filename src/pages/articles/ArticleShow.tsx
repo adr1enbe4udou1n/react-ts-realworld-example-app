@@ -2,6 +2,8 @@ import {
   Article,
   Comment,
   deleteArticle,
+  favoriteArticleToggle,
+  followProfileToggle,
   getArticle,
   getComments,
 } from "@/api";
@@ -52,15 +54,14 @@ const ArticleShow = () => {
         <div className="flex items-center">
           <PostAuthor
             article={article}
-            onFollow={(following) =>
-              setArticle({
-                ...article,
-                author: { ...article.author, following },
-              })
-            }
-            onFavorite={(favorite) =>
-              setArticle({ ...article, favorited: favorite })
-            }
+            onFollow={async () => {
+              await followProfileToggle(article.author);
+              setArticle(article);
+            }}
+            onFavorite={async () => {
+              await favoriteArticleToggle(article);
+              setArticle(article);
+            }}
           />
 
           {userStore?.isLoggedIn &&

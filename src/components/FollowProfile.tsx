@@ -1,4 +1,4 @@
-import { followProfile, Profile, unfollowProfile } from "@/api";
+import { Profile } from "@/api";
 import { UserContext } from "@/contexts/user";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ const FollowProfile = ({
 }: {
   profile: Profile;
   className?: string | undefined;
-  onFollow?: (following: boolean) => void;
+  onFollow?: () => void;
 }) => {
   const userStore = useContext(UserContext);
   const navigate = useNavigate();
@@ -28,17 +28,8 @@ const FollowProfile = ({
       navigate("/login");
     }
 
-    if (profile.following) {
-      await unfollowProfile({ username: profile.username });
-      if (onFollow) {
-        onFollow(false);
-      }
-      return;
-    }
-
-    await followProfile({ username: profile.username });
     if (onFollow) {
-      onFollow(true);
+      onFollow();
     }
   };
 
