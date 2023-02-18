@@ -15,7 +15,7 @@ const Login = () => {
   }>({ email: "", password: "" });
 
   const onSuccess = ({ user }: { user: User }) => {
-    userStore?.setUser(user);
+    userStore?.loadUser(user);
     navigate("/");
   };
 

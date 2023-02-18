@@ -1,12 +1,12 @@
 // create user context
 
 import { User, getUser } from "@/api";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 
 const UserContext = createContext<{
   user: User | null;
-  setUser: (user: User) => void;
+  loadUser: (user: User) => void;
   logout: () => void;
   isLoggedIn: boolean;
   fetch: () => Promise<void>;
@@ -15,17 +15,13 @@ const UserContext = createContext<{
 const UserProvider = ({ children }: { children: JSX.Element }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useLocalStorageState("token");
-  const [isLoggedIn, setIsLoggedIn] = useState(!!token);
 
-  useEffect(() => {
-    if (user?.token) {
-      setToken(user.token);
-    }
-  }, [user]);
+  const isLoggedIn = !!token;
 
-  useEffect(() => {
-    setIsLoggedIn(!!token);
-  }, [token]);
+  const loadUser = async (user: User) => {
+    setUser(user);
+    setToken(user.token);
+  };
 
   const fetch = async () => {
     if (!token) {
@@ -34,9 +30,9 @@ const UserProvider = ({ children }: { children: JSX.Element }) => {
     try {
       const response = await getUser({});
 
-      setUser(response.data.user);
+      loadUser(response.data.user);
     } catch (e) {
-      setToken(null);
+      logout();
     }
   };
 
@@ -49,7 +45,7 @@ const UserProvider = ({ children }: { children: JSX.Element }) => {
     <UserContext.Provider
       value={{
         user,
-        setUser,
+        loadUser,
         logout,
         fetch,
         isLoggedIn,

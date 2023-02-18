@@ -33,7 +33,7 @@ const Settings = () => {
   }, [userStore?.user]);
 
   const onSuccess = ({ user }: { user: User }) => {
-    userStore?.setUser(user);
+    userStore?.loadUser(user);
     setSuccess(true);
   };
 
