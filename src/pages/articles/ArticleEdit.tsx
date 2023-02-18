@@ -1,7 +1,7 @@
 import { Article, createArticle, getArticle, handleValidation } from "@/api";
 import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const ArticleEdit = () => {
@@ -22,13 +22,15 @@ const ArticleEdit = () => {
     body: "",
   });
 
-  getArticle({ slug }).then(({ data }) => {
-    setForm({
-      title: data.article.title,
-      description: data.article.description,
-      body: data.article.body,
+  useEffect(() => {
+    getArticle({ slug }).then(({ data }) => {
+      setForm({
+        title: data.article.title,
+        description: data.article.description,
+        body: data.article.body,
+      });
     });
-  });
+  }, []);
 
   const onSuccess = async ({ article }: { article: Article }) => {
     navigate(`/articles/${article.slug}`);

@@ -4,7 +4,7 @@ import {
   getArticles,
   getArticlesFeed,
 } from "@/api";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Pagination from "./Pagination";
 import PostCard from "./PostCard";
 
@@ -49,7 +49,7 @@ const PostsList = ({
     setPage(currentPage);
   };
 
-  useMemo(() => {
+  useEffect(() => {
     fetchData({ currentPage: 1, currentPageSize: 10 });
   }, [tag]);
 

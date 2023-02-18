@@ -1,12 +1,14 @@
 import { getTags } from "@/api";
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const TagList = ({ onSelect }: { onSelect: (tag: string | null) => void }) => {
   const [tags, setTags] = useState<string[]>([]);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
-  getTags({}).then(({ data }) => setTags(data.tags));
+  useEffect(() => {
+    getTags({}).then(({ data }) => setTags(data.tags));
+  }, []);
 
   return (
     <ul>
