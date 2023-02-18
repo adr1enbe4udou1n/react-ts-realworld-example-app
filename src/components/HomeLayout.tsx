@@ -30,7 +30,7 @@ const HomeLayout = ({
       <div className="container flex flex-col md:flex-row mb-8 gap-8">
         <div className="md:flex-1">
           <ArticlesNav items={menuItems} />
-          <PostsList useFeed={useFeed} tag={tag} />
+          <PostsList useFeed={useFeed} tag={tag} key={tag} />
         </div>
 
         {children}
