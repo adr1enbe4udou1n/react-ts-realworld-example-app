@@ -62,7 +62,7 @@ const PostsList = ({
           tag={tag}
           onFavorite={async () => {
             await favoriteArticleToggle(article);
-            setArticles([...articles, article]);
+            setArticles(articles.map((a) => (a === article ? article : a)));
           }}
         />
       ))}
