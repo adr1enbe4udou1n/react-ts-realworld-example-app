@@ -4,7 +4,7 @@ import {
   getArticles,
   getArticlesFeed,
 } from "@/api";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Pagination from "./Pagination";
 import PostCard from "./PostCard";
 
