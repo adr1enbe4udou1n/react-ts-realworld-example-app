@@ -30,7 +30,7 @@ const ArticleEdit = () => {
         body: data.article.body,
       });
     });
-  }, []);
+  }, [slug]);
 
   const onSuccess = async ({ article }: { article: Article }) => {
     navigate(`/articles/${article.slug}`);

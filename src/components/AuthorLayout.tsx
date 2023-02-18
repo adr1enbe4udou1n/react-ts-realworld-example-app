@@ -16,7 +16,7 @@ const AuthorLayout = ({
     getProfile({ username: author }).then(({ data }) => {
       setProfile(data.profile);
     });
-  }, []);
+  }, [author]);
 
   if (!profile) {
     return null;

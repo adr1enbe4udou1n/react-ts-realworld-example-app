@@ -35,7 +35,7 @@ const ArticleShow = () => {
     getComments({ slug }).then(({ data }) => {
       setComments(data.comments);
     });
-  }, []);
+  }, [slug]);
 
   if (!article) {
     return null;
