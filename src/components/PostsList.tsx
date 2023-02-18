@@ -4,7 +4,7 @@ import {
   getArticles,
   getArticlesFeed,
 } from "@/api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Pagination from "./Pagination";
 import PostCard from "./PostCard";
 
@@ -23,10 +23,6 @@ const PostsList = ({
   const [articles, setArticles] = useState<Article[]>([]);
   const [page, setPage] = useState(0);
   const [total, setTotal] = useState(0);
-
-  useEffect(() => {
-    fetchData({ currentPage: 1, currentPageSize: 10 });
-  }, [tag]);
 
   const fetchData = async ({
     currentPage,
@@ -52,6 +48,8 @@ const PostsList = ({
     setTotal(data.articlesCount);
     setPage(currentPage);
   };
+
+  fetchData({ currentPage: 1, currentPageSize: 10 });
 
   return (
     <>

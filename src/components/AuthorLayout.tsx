@@ -1,5 +1,5 @@
 import { followProfileToggle, getProfile, Profile } from "@/api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ArticlesNav from "./ArticlesNav";
 import FollowProfile from "./FollowProfile";
 
@@ -12,11 +12,9 @@ const AuthorLayout = ({
 }) => {
   const [profile, setProfile] = useState<Profile | null>(null);
 
-  useEffect(() => {
-    getProfile({ username: author }).then(({ data }) => {
-      setProfile(data.profile);
-    });
-  }, [author]);
+  getProfile({ username: author }).then(({ data }) => {
+    setProfile(data.profile);
+  });
 
   if (!profile) {
     return null;

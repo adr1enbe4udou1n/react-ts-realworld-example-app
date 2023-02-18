@@ -13,7 +13,7 @@ import CommentNew from "@/components/CommentNew";
 import MarkdownViewer from "@/components/MarkdownViewer";
 import PostAuthor from "@/components/PostAuthor";
 import { UserContext } from "@/contexts/user";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const ArticleShow = () => {
@@ -28,14 +28,12 @@ const ArticleShow = () => {
   const [article, setArticle] = useState<Article | null>(null);
   const [comments, setComments] = useState<Comment[]>([]);
 
-  useEffect(() => {
-    getArticle({ slug }).then(({ data }) => {
-      setArticle(data.article);
-    });
-    getComments({ slug }).then(({ data }) => {
-      setComments(data.comments);
-    });
-  }, [slug]);
+  getArticle({ slug }).then(({ data }) => {
+    setArticle(data.article);
+  });
+  getComments({ slug }).then(({ data }) => {
+    setComments(data.comments);
+  });
 
   if (!article) {
     return null;
