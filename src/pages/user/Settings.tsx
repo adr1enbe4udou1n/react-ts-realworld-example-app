@@ -3,7 +3,7 @@ import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
 import SuccessMessage from "@/components/SuccessMessage";
 import { UserContext } from "@/contexts/user";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 const Settings = () => {
   const userStore = useContext(UserContext);
@@ -21,16 +21,14 @@ const Settings = () => {
     image: "",
   });
 
-  useEffect(() => {
-    if (userStore?.user) {
-      setForm({
-        email: userStore.user.email,
-        username: userStore.user.username,
-        bio: userStore.user.bio || "",
-        image: userStore.user.image || "",
-      });
-    }
-  }, [userStore?.user]);
+  if (userStore?.user) {
+    setForm({
+      email: userStore.user.email,
+      username: userStore.user.username,
+      bio: userStore.user.bio || "",
+      image: userStore.user.image || "",
+    });
+  }
 
   const onSuccess = ({ user }: { user: User }) => {
     userStore?.loadUser(user);

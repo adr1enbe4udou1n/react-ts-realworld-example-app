@@ -1,24 +1,15 @@
 import { UserContext } from "@/contexts/user";
 import classNames from "classnames";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-
-type MenuItem = {
-  icon?: string;
-  name: string;
-  link?: string;
-  click?: () => void;
-};
 
 const AppHeader = () => {
   const userStore = useContext(UserContext);
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (userStore?.isLoggedIn) {
-      setMenuItems([
+  const menuItems = userStore?.isLoggedIn
+    ? [
         {
           icon: "i-carbon-request-quote",
           name: "New Post",
@@ -32,21 +23,17 @@ const AppHeader = () => {
             navigate("/");
           },
         },
-      ]);
-
-      return;
-    }
-    setMenuItems([
-      {
-        name: "Sign in",
-        link: "/login",
-      },
-      {
-        name: "Sign up",
-        link: "/register",
-      },
-    ]);
-  }, [userStore]);
+      ]
+    : [
+        {
+          name: "Sign in",
+          link: "/login",
+        },
+        {
+          name: "Sign up",
+          link: "/register",
+        },
+      ];
 
   return (
     <header className="dark:text-white">
