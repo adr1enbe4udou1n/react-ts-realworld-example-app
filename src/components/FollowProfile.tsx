@@ -1,5 +1,6 @@
-import { Profile } from "@/api";
+import { followProfileToggle, Profile } from "@/api";
 import { UserContext } from "@/contexts/user";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import BaseButton from "./BaseButton";
@@ -7,14 +8,25 @@ import BaseButton from "./BaseButton";
 const FollowProfile = ({
   profile,
   className,
-  onFollow,
 }: {
   profile: Profile;
   className?: string | undefined;
-  onFollow?: () => void;
 }) => {
+  const queryClient = useQueryClient();
   const userStore = useContext(UserContext);
   const navigate = useNavigate();
+
+  const mutation = useMutation({
+    mutationFn: followProfileToggle,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["articles"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["profiles", profile.username],
+      });
+    },
+  });
 
   if (userStore?.user?.username === profile.username) {
     return null;
@@ -23,14 +35,12 @@ const FollowProfile = ({
   const icon = profile.following ? "i-carbon-subtract" : "i-carbon-add";
   const label = profile.following ? "Unfollow" : "Follow";
 
-  const toggleFollow = async () => {
+  const toggleFollow = () => {
     if (!userStore?.isLoggedIn) {
       navigate("/login");
     }
 
-    if (onFollow) {
-      onFollow();
-    }
+    mutation.mutate(profile);
   };
 
   return (

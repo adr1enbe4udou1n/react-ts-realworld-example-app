@@ -1,5 +1,5 @@
-import { followProfileToggle, getProfile } from "@/api";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getProfile } from "@/api";
+import { useQuery } from "@tanstack/react-query";
 import ArticlesNav from "./ArticlesNav";
 import FollowProfile from "./FollowProfile";
 
@@ -10,19 +10,10 @@ const AuthorLayout = ({
   author: string;
   children: React.ReactNode;
 }) => {
-  const queryClient = useQueryClient();
-
   const { data } = useQuery({
     queryFn: () =>
       getProfile({ username: author }).then(({ data }) => data.profile),
-    queryKey: ["profile", author],
-  });
-
-  const mutation = useMutation({
-    mutationFn: followProfileToggle,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["profile", author] });
-    },
+    queryKey: ["profiles", author],
   });
 
   if (!data) {
@@ -55,10 +46,7 @@ const AuthorLayout = ({
             {data.username}
           </h1>
           <p className="mx-auto max-w-140 text-gray-300 mb-4">{data.bio}</p>
-          <FollowProfile
-            profile={data}
-            onFollow={() => mutation.mutate(data)}
-          />
+          <FollowProfile profile={data} />
         </div>
       </div>
       <div className="container py-8">

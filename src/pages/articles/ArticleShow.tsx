@@ -1,22 +1,15 @@
-import {
-  deleteArticle,
-  favoriteArticleToggle,
-  followProfileToggle,
-  getArticle,
-  getComments,
-} from "@/api";
+import { deleteArticle, getArticle, getComments } from "@/api";
 import BaseButton from "@/components/BaseButton";
 import CommentCard from "@/components/CommentCard";
 import CommentNew from "@/components/CommentNew";
 import MarkdownViewer from "@/components/MarkdownViewer";
 import PostAuthor from "@/components/PostAuthor";
 import { UserContext } from "@/contexts/user";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const ArticleShow = () => {
-  const queryClient = useQueryClient();
   const userStore = useContext(UserContext);
   const navigate = useNavigate();
   const { slug } = useParams<{ slug: string }>();
@@ -33,20 +26,6 @@ const ArticleShow = () => {
   const commentsQuery = useQuery({
     queryFn: () => getComments({ slug }).then(({ data }) => data.comments),
     queryKey: ["comments", slug],
-  });
-
-  const mutationFollow = useMutation({
-    mutationFn: followProfileToggle,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["articles", slug] });
-    },
-  });
-
-  const mutationFavorite = useMutation({
-    mutationFn: favoriteArticleToggle,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["articles", slug] });
-    },
   });
 
   if (!articlesQuery.data) {
@@ -70,11 +49,7 @@ const ArticleShow = () => {
           </h1>
 
           <div className="flex items-center">
-            <PostAuthor
-              article={articlesQuery.data}
-              onFollow={() => mutationFollow.mutate(articlesQuery.data.author)}
-              onFavorite={() => mutationFavorite.mutate(articlesQuery.data)}
-            />
+            <PostAuthor article={articlesQuery.data} />
 
             {userStore?.isLoggedIn &&
               articlesQuery.data.author.username ===
@@ -106,12 +81,7 @@ const ArticleShow = () => {
         <MarkdownViewer source={articlesQuery.data.body} />
       </div>
       <div className="container border-t border-gray-300 py-4 flex flex-col">
-        <PostAuthor
-          article={articlesQuery.data}
-          className="mx-auto mb-8"
-          onFollow={() => mutationFollow.mutate(articlesQuery.data.author)}
-          onFavorite={() => mutationFavorite.mutate(articlesQuery.data)}
-        />
+        <PostAuthor article={articlesQuery.data} className="mx-auto mb-8" />
         <div className="mx-auto max-w-2xl flex flex-col gap-4 lg:min-w-xl">
           <CommentNew article={articlesQuery.data} />
           {(commentsQuery.data || []).map((comment) => (

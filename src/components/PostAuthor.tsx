@@ -7,13 +7,9 @@ import ProfileCard from "./ProfileCard";
 const PostAuthor = ({
   article,
   className,
-  onFollow,
-  onFavorite,
 }: {
   article: Article;
   className?: string;
-  onFollow: () => void;
-  onFavorite: () => void;
 }) => {
   return (
     <div className={classNames(className, "flex items-center")}>
@@ -23,14 +19,10 @@ const PostAuthor = ({
         className="mr-4"
       />
       <div className="mr-2">
-        <FollowProfile profile={article.author} onFollow={onFollow} />
+        <FollowProfile profile={article.author} />
       </div>
       <div>
-        <FavoriteArticle
-          article={article}
-          full={true}
-          onFavorite={onFavorite}
-        />
+        <FavoriteArticle article={article} full={true} />
       </div>
     </div>
   );

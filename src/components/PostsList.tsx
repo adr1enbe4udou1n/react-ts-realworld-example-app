@@ -1,5 +1,5 @@
-import { favoriteArticleToggle, getArticles, getArticlesFeed } from "@/api";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { getArticles, getArticlesFeed } from "@/api";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import Pagination from "./Pagination";
 import PostCard from "./PostCard";
@@ -15,7 +15,6 @@ const PostsList = ({
   author?: string | null;
   favorited?: string | null;
 }) => {
-  const queryClient = useQueryClient();
   const limit = 10;
   const [page, setPage] = useState(1);
   const offset = Math.floor(limit * (page - 1));
@@ -40,13 +39,6 @@ const PostsList = ({
     queryKey: ["articles", tag, author, favorited, page],
   });
 
-  const mutation = useMutation({
-    mutationFn: favoriteArticleToggle,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["articles"] });
-    },
-  });
-
   useEffect(() => {
     setPage(1);
   }, [tag, author, favorited]);
@@ -57,12 +49,7 @@ const PostsList = ({
   return (
     <>
       {articles.map((article, i) => (
-        <PostCard
-          key={i}
-          article={article}
-          tag={tag}
-          onFavorite={() => mutation.mutate(article)}
-        />
+        <PostCard key={i} article={article} tag={tag} />
       ))}
       <Pagination
         page={page}

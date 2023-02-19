@@ -7,11 +7,9 @@ import ProfileCard from "./ProfileCard";
 const PostCard = ({
   article,
   tag,
-  onFavorite,
 }: {
   article: Article;
   tag: string | null;
-  onFavorite?: () => void;
 }) => {
   return (
     <div className="border-t border-gray-200 py-4">
@@ -19,7 +17,7 @@ const PostCard = ({
         <header className="flex mb-2">
           <ProfileCard author={article.author} date={article.createdAt} />
           <div className="ml-auto">
-            <FavoriteArticle article={article} onFavorite={onFavorite} />
+            <FavoriteArticle article={article} />
           </div>
         </header>
         <div className="flex flex-col gap-2 relative">

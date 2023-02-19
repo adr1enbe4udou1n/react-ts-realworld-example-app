@@ -1,5 +1,6 @@
-import { Article } from "@/api";
+import { Article, favoriteArticleToggle } from "@/api";
 import { UserContext } from "@/contexts/user";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import BaseButton from "./BaseButton";
@@ -7,28 +8,32 @@ import BaseButton from "./BaseButton";
 const FavoriteArticle = ({
   article,
   full = false,
-  onFavorite,
 }: {
   article: Article;
   full?: boolean;
-  onFavorite?: () => void;
 }) => {
+  const queryClient = useQueryClient();
   const userStore = useContext(UserContext);
   const navigate = useNavigate();
+
+  const mutation = useMutation({
+    mutationFn: favoriteArticleToggle,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["articles", article.slug] });
+    },
+  });
 
   const icon = article.favorited
     ? "i-carbon-favorite-filled"
     : "i-carbon-favorite";
   const label = article.favorited ? "Unfavorite" : "Favorite";
 
-  const toggleFavorite = async () => {
+  const toggleFavorite = () => {
     if (!userStore?.isLoggedIn) {
       navigate("/login");
     }
 
-    if (onFavorite) {
-      onFavorite();
-    }
+    mutation.mutate(article);
   };
 
   return full ? (
