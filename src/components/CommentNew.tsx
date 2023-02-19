@@ -31,7 +31,7 @@ const CommentNew = ({ article }: { article: Article }) => {
   return (
     <FormValidation
       className="block rounded border border-gray-300"
-      action={() => mutation.mutateAsync()}
+      action={mutation.mutateAsync}
     >
       <textarea
         required

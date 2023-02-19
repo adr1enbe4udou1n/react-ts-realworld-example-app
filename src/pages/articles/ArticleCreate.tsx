@@ -48,7 +48,7 @@ const ArticleCreate = () => {
         </div>
         <FormValidation
           className="flex flex-col gap-4"
-          action={() => mutation.mutateAsync()}
+          action={mutation.mutateAsync}
         >
           <div>
             <input
