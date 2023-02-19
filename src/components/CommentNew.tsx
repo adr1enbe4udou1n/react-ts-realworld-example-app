@@ -1,18 +1,28 @@
-import { Article, Comment, createComment, handleValidation } from "@/api";
+import { Article, createComment, handleValidation } from "@/api";
 import { UserContext } from "@/contexts/user";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import BaseButton from "./BaseButton";
 import FormValidation from "./FormValidation";
 
-const CommentNew = ({
-  article,
-  onCommentCreated,
-}: {
-  article: Article;
-  onCommentCreated: (c: Comment) => void;
-}) => {
+const CommentNew = ({ article }: { article: Article }) => {
+  const queryClient = useQueryClient();
   const userStore = useContext(UserContext);
   const [body, setBody] = useState("");
+
+  const mutation = useMutation({
+    mutationFn: () =>
+      handleValidation(createComment, {
+        slug: article.slug,
+        comment: {
+          body,
+        },
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["comments", article.slug] });
+      setBody("");
+    },
+  });
 
   if (!userStore?.user) {
     return null;
@@ -21,18 +31,7 @@ const CommentNew = ({
   return (
     <FormValidation
       className="block rounded border border-gray-300"
-      action={() =>
-        handleValidation(
-          createComment,
-          {
-            slug: article.slug,
-            comment: {
-              body,
-            },
-          },
-          (data) => onCommentCreated(data.comment)
-        )
-      }
+      action={() => mutation.mutateAsync()}
     >
       <textarea
         required

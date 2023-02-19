@@ -1,10 +1,12 @@
-import { Article, createArticle, getArticle, handleValidation } from "@/api";
+import { getArticle, handleValidation, updateArticle } from "@/api";
 import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
-import { useEffect, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const ArticleEdit = () => {
+  const queryClient = useQueryClient();
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
 
@@ -22,19 +24,31 @@ const ArticleEdit = () => {
     body: "",
   });
 
-  useEffect(() => {
-    getArticle({ slug }).then(({ data }) => {
-      setForm({
-        title: data.article.title,
-        description: data.article.description,
-        body: data.article.body,
-      });
-    });
-  }, [slug]);
+  useQuery({
+    queryFn: () =>
+      getArticle({ slug }).then(({ data }) => {
+        setForm({
+          title: data.article.title,
+          description: data.article.description,
+          body: data.article.body,
+        });
 
-  const onSuccess = async ({ article }: { article: Article }) => {
-    navigate(`/articles/${article.slug}`);
-  };
+        return data.article;
+      }),
+    queryKey: ["articles", slug],
+  });
+
+  const mutation = useMutation({
+    mutationFn: () =>
+      handleValidation(updateArticle, {
+        slug,
+        article: form,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["articles", slug] });
+      navigate(`/articles/${slug}`);
+    },
+  });
 
   return (
     <div className="container flex flex-col mb-8">
@@ -46,15 +60,7 @@ const ArticleEdit = () => {
         </div>
         <FormValidation
           className="flex flex-col gap-4"
-          action={() =>
-            handleValidation(
-              createArticle,
-              {
-                article: form,
-              },
-              onSuccess
-            )
-          }
+          action={() => mutation.mutateAsync()}
         >
           <div>
             <input

@@ -10,13 +10,7 @@ const Pagination = ({
   page: number;
   limit: number;
   total: number;
-  fetchData: ({
-    currentPage,
-    currentPageSize,
-  }: {
-    currentPage: number;
-    currentPageSize: number;
-  }) => Promise<void>;
+  fetchData: ({ currentPage }: { currentPage: number }) => Promise<void> | void;
 }) => {
   if (total <= limit) return null;
 
@@ -34,9 +28,7 @@ const Pagination = ({
         className={classNames(classes, {
           "opacity-50": isFirstPage,
         })}
-        onClick={() =>
-          fetchData({ currentPage: page - 1, currentPageSize: limit })
-        }
+        onClick={() => fetchData({ currentPage: page - 1 })}
       >
         &lt;
       </button>
@@ -48,9 +40,7 @@ const Pagination = ({
             "opacity-50": !Number.isInteger(item),
             "text-white border-green-500 bg-green-500": page === item,
           })}
-          onClick={() =>
-            fetchData({ currentPage: Number(item), currentPageSize: limit })
-          }
+          onClick={() => fetchData({ currentPage: Number(item) })}
         >
           {item}
         </button>
@@ -61,9 +51,7 @@ const Pagination = ({
         className={classNames(classes, {
           "opacity-50": isLastPage,
         })}
-        onClick={() =>
-          fetchData({ currentPage: page + 1, currentPageSize: limit })
-        }
+        onClick={() => fetchData({ currentPage: page + 1 })}
       >
         &gt;
       </button>

@@ -1,9 +1,5 @@
-import {
-  Article,
-  favoriteArticleToggle,
-  getArticles,
-  getArticlesFeed,
-} from "@/api";
+import { favoriteArticleToggle, getArticles, getArticlesFeed } from "@/api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import Pagination from "./Pagination";
 import PostCard from "./PostCard";
@@ -19,10 +15,9 @@ const PostsList = ({
   author?: string | null;
   favorited?: string | null;
 }) => {
+  const queryClient = useQueryClient();
   const limit = 10;
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [page, setPage] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
 
   const fetchData = async ({
     currentPage,
@@ -31,46 +26,57 @@ const PostsList = ({
     currentPage: number;
     currentPageSize: number;
   }) => {
-    const { data } = useFeed
-      ? await getArticlesFeed({
+    return useFeed
+      ? getArticlesFeed({
           limit,
           offset: Math.floor(currentPageSize * (currentPage - 1)),
         })
-      : await getArticles({
+      : getArticles({
           limit,
           offset: Math.floor(currentPageSize * (currentPage - 1)),
           tag: tag || undefined,
           author: author || undefined,
           favorited: favorited || undefined,
         });
-
-    setArticles(data.articles);
-    setTotal(data.articlesCount);
-    setPage(currentPage);
   };
 
+  const articlesQuery = useQuery({
+    queryFn: () =>
+      fetchData({ currentPage: page, currentPageSize: limit }).then(
+        ({ data }) => data
+      ),
+    queryKey: ["articles", tag, author, favorited, page],
+  });
+
+  const mutation = useMutation({
+    mutationFn: favoriteArticleToggle,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["articles"] });
+    },
+  });
+
   useEffect(() => {
-    fetchData({ currentPage: 1, currentPageSize: 10 });
-  }, [tag]);
+    setPage(1);
+  }, [tag, author, favorited]);
 
   return (
     <>
-      {articles.map((article, i) => (
+      {(articlesQuery.data?.articles || []).map((article, i) => (
         <PostCard
           key={i}
           article={article}
           tag={tag}
-          onFavorite={async () => {
-            await favoriteArticleToggle(article);
-            setArticles(articles.map((a) => (a === article ? article : a)));
-          }}
+          onFavorite={() => mutation.mutate(article)}
         />
       ))}
       <Pagination
         page={page}
         limit={limit}
-        total={total}
-        fetchData={fetchData}
+        total={articlesQuery.data?.articlesCount || 0}
+        fetchData={({ currentPage }) => {
+          setPage(currentPage);
+          articlesQuery.refetch();
+        }}
       />
     </>
   );

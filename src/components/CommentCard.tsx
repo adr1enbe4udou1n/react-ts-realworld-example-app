@@ -1,28 +1,28 @@
 import { Comment, deleteComment } from "@/api";
 import { UserContext } from "@/contexts/user";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
 import MarkdownViewer from "./MarkdownViewer";
 import ProfileCard from "./ProfileCard";
 
-const CommentCard = ({
-  comment,
-  slug,
-  onCommentDeleted,
-}: {
-  comment: Comment;
-  slug: string;
-  onCommentDeleted: () => void;
-}) => {
+const CommentCard = ({ comment, slug }: { comment: Comment; slug: string }) => {
+  const queryClient = useQueryClient();
   const userStore = useContext(UserContext);
+
+  const mutation = useMutation({
+    mutationFn: () =>
+      deleteComment({
+        slug: slug,
+        commentId: comment.id,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["comments", slug] });
+    },
+  });
 
   const deleteCommentAction = async () => {
     if (confirm("Are you sure?")) {
-      await deleteComment({
-        slug: slug,
-        commentId: comment.id,
-      });
-
-      onCommentDeleted();
+      mutation.mutate();
     }
   };
 

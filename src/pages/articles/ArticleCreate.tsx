@@ -1,11 +1,13 @@
-import { Article, createArticle, handleValidation } from "@/api";
+import { createArticle, handleValidation } from "@/api";
 import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
 import TagInput from "@/components/TagInput";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ArticleCreate = () => {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const [form, setForm] = useState<{
@@ -20,9 +22,21 @@ const ArticleCreate = () => {
     tagList: [],
   });
 
-  const onSuccess = async ({ article }: { article: Article }) => {
-    navigate(`/articles/${article.slug}`);
-  };
+  const mutation = useMutation({
+    mutationFn: () =>
+      handleValidation(
+        createArticle,
+        {
+          article: form,
+        },
+        ({ article }) => {
+          navigate(`/articles/${article.slug}`);
+        }
+      ),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["articles"] });
+    },
+  });
 
   return (
     <div className="container flex flex-col mb-8">
@@ -34,15 +48,7 @@ const ArticleCreate = () => {
         </div>
         <FormValidation
           className="flex flex-col gap-4"
-          action={() =>
-            handleValidation(
-              createArticle,
-              {
-                article: form,
-              },
-              onSuccess
-            )
-          }
+          action={() => mutation.mutateAsync()}
         >
           <div>
             <input

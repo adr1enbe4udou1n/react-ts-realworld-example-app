@@ -1,5 +1,5 @@
-import { followProfileToggle, getProfile, Profile } from "@/api";
-import { useEffect, useState } from "react";
+import { followProfileToggle, getProfile } from "@/api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import ArticlesNav from "./ArticlesNav";
 import FollowProfile from "./FollowProfile";
 
@@ -10,26 +10,33 @@ const AuthorLayout = ({
   author: string;
   children: React.ReactNode;
 }) => {
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    getProfile({ username: author }).then(({ data }) => {
-      setProfile(data.profile);
-    });
-  }, [author]);
+  const { data } = useQuery({
+    queryFn: () =>
+      getProfile({ username: author }).then(({ data }) => data.profile),
+    queryKey: ["profile", author],
+  });
 
-  if (!profile) {
+  const mutation = useMutation({
+    mutationFn: followProfileToggle,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["profile", author] });
+    },
+  });
+
+  if (!data) {
     return null;
   }
 
   const menuItems = [
     {
       name: "My Posts",
-      link: `/profiles/${profile.username}`,
+      link: `/profiles/${data.username}`,
     },
     {
       name: "Favorited Posts",
-      link: `/profiles/${profile.username}/favorites`,
+      link: `/profiles/${data.username}/favorites`,
     },
   ];
 
@@ -37,23 +44,20 @@ const AuthorLayout = ({
     <>
       <div className="bg-gray-100 dark:bg-gray-800 text-center py-8 mb-8">
         <div className="container">
-          {profile.image && (
+          {data.image && (
             <img
-              src={profile.image}
-              alt={profile.username}
+              src={data.image}
+              alt={data.username}
               className="rounded-full mx-auto w-30 h-30 mb-4"
             />
           )}
           <h1 className="font-brand font-bold text-2xl mb-4 text-gray-300">
-            {profile.username}
+            {data.username}
           </h1>
-          <p className="mx-auto max-w-140 text-gray-300 mb-4">{profile.bio}</p>
+          <p className="mx-auto max-w-140 text-gray-300 mb-4">{data.bio}</p>
           <FollowProfile
-            profile={profile}
-            onFollow={async () => {
-              await followProfileToggle(profile);
-              setProfile(profile);
-            }}
+            profile={data}
+            onFollow={() => mutation.mutate(data)}
           />
         </div>
       </div>

@@ -11,12 +11,12 @@ import type { components, paths } from "./conduit";
 const handleValidation = async <T>(
   operation: TypedFetch<T>,
   arg: OpArgType<T>,
-  onSuccess: (data: OpReturnType<T>) => void
+  onSuccess?: (data: OpReturnType<T>) => void
 ): Promise<ValidationProblemDetails | undefined> => {
   try {
     const response = await operation(arg);
 
-    if (response?.ok) {
+    if (response?.ok && onSuccess) {
       onSuccess(response.data);
     }
   } catch (e) {
@@ -103,23 +103,17 @@ const deleteComment = fetcher
 const favoriteArticleToggle = async (article: Article) => {
   if (article.favorited) {
     await unfavoriteArticle({ slug: article.slug });
-    article.favorited = false;
-    article.favoritesCount--;
     return;
   }
   await favoriteArticle({ slug: article.slug });
-  article.favorited = true;
-  article.favoritesCount++;
 };
 
 const followProfileToggle = async (profile: Profile) => {
   if (profile.following) {
     await unfollowProfile({ username: profile.username });
-    profile.following = false;
     return;
   }
   await followProfile({ username: profile.username });
-  profile.following = true;
 };
 
 export type { Article, Profile, Comment, User, ValidationProblemDetails };
