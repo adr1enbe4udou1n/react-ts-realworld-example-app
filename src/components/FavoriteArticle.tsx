@@ -19,7 +19,7 @@ const FavoriteArticle = ({
   const mutation = useMutation({
     mutationFn: favoriteArticleToggle,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["articles", article.slug] });
+      queryClient.invalidateQueries({ queryKey: ["articles"] });
     },
   });
 
