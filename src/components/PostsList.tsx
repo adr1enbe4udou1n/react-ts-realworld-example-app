@@ -19,7 +19,7 @@ const PostsList = ({
   const limit = 10;
   const [page, setPage] = useState(1);
 
-  const fetchData = async ({
+  const fetchData = ({
     currentPage,
     currentPageSize,
   }: {
