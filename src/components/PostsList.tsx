@@ -18,22 +18,17 @@ const PostsList = ({
   const queryClient = useQueryClient();
   const limit = 10;
   const [page, setPage] = useState(1);
+  const offset = Math.floor(limit * (page - 1));
 
-  const fetchData = ({
-    currentPage,
-    currentPageSize,
-  }: {
-    currentPage: number;
-    currentPageSize: number;
-  }) => {
+  const fetchData = () => {
     return useFeed
       ? getArticlesFeed({
           limit,
-          offset: Math.floor(currentPageSize * (currentPage - 1)),
+          offset,
         })
       : getArticles({
           limit,
-          offset: Math.floor(currentPageSize * (currentPage - 1)),
+          offset,
           tag: tag || undefined,
           author: author || undefined,
           favorited: favorited || undefined,
@@ -41,10 +36,7 @@ const PostsList = ({
   };
 
   const articlesQuery = useQuery({
-    queryFn: () =>
-      fetchData({ currentPage: page, currentPageSize: limit }).then(
-        ({ data }) => data
-      ),
+    queryFn: () => fetchData().then(({ data }) => data),
     queryKey: ["articles", tag, author, favorited, page],
   });
 
