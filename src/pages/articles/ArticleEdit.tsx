@@ -24,7 +24,7 @@ const ArticleEdit = () => {
     body: "",
   });
 
-  useQuery({
+  const { data } = useQuery({
     queryFn: () =>
       getArticle({ slug }).then(({ data }) => {
         setForm({
@@ -50,12 +50,16 @@ const ArticleEdit = () => {
     },
   });
 
+  if (!data) {
+    return null;
+  }
+
   return (
     <div className="container flex flex-col mb-8">
       <div className="lg:w-2xl sm:mx-auto">
         <div className="text-center mb-8">
           <h1 className="font-heading text-4xl mb-2 dark:text-white">
-            Your new post
+            Edit the post &quot;{data.title}&quot;
           </h1>
         </div>
         <FormValidation
