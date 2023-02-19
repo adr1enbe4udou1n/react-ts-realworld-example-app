@@ -51,9 +51,12 @@ const PostsList = ({
     setPage(1);
   }, [tag, author, favorited]);
 
+  const articles = articlesQuery.data?.articles || [];
+  const total = articlesQuery.data?.articlesCount || 0;
+
   return (
     <>
-      {(articlesQuery.data?.articles || []).map((article, i) => (
+      {articles.map((article, i) => (
         <PostCard
           key={i}
           article={article}
@@ -64,7 +67,7 @@ const PostsList = ({
       <Pagination
         page={page}
         limit={limit}
-        total={articlesQuery.data?.articlesCount || 0}
+        total={total}
         fetchData={({ currentPage }) => {
           setPage(currentPage);
           articlesQuery.refetch();
