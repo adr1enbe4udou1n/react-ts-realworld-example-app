@@ -1,7 +1,12 @@
+import RequireAuth from "@/components/guards/RequireAuth";
 import HomeLayout from "@/components/HomeLayout";
 
 const Feed = () => {
-  return <HomeLayout useFeed={true} />;
+  return (
+    <RequireAuth>
+      <HomeLayout useFeed={true} />
+    </RequireAuth>
+  );
 };
 
 export default Feed;
