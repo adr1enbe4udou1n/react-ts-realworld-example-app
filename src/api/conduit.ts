@@ -265,13 +265,13 @@ export interface operations {
      * Get recent articles globally
      * @description Get most recent articles globally. Use query parameters to filter results. Auth is optional
      */
-    parameters?: {
+    parameters: {
       /** @description Filter by author (username) */
       /** @description Filter by favorites of a user (username) */
       /** @description Filter by tag */
       /** @description Limit number of articles returned (default is 20) */
       /** @description Offset/skip number of articles (default is 0) */
-      query?: {
+      query: {
         author?: string;
         favorited?: string;
         tag?: string;
@@ -331,10 +331,10 @@ export interface operations {
      * Get recent articles from users you follow
      * @description Get most recent articles from users you follow. Use query parameters to limit. Auth is required
      */
-    parameters?: {
+    parameters: {
       /** @description Limit number of articles returned (default is 20) */
       /** @description Offset/skip number of articles (default is 0) */
-      query?: {
+      query: {
         limit?: number;
         offset?: number;
       };
