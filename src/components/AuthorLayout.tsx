@@ -52,7 +52,7 @@ const AuthorLayout = ({
             profile={profile}
             onFollow={async () => {
               await followProfileToggle(profile);
-              setProfile(profile);
+              setProfile({ ...profile, following: profile.following });
             }}
           />
         </div>
