@@ -21,7 +21,7 @@ const TagList = ({ onSelect }: { onSelect: (tag: string | null) => void }) => {
               "bg-gray rounded-full text-white text-sm px-2 mr-1",
               {
                 "bg-green": t === selectedTag,
-              }
+              },
             )}
             onClick={() => {
               const tag = t === selectedTag ? null : t;

@@ -27,7 +27,7 @@ const BaseButton = ({
       "p-4 text-xl": size === "md",
       "bg-green text-white": variant === "primary",
       "bg-gray-300 text-black": variant === "secondary",
-    }
+    },
   );
 
   return to ? (

@@ -3,7 +3,6 @@
  * Do not make direct changes to the file.
  */
 
-
 export interface paths {
   "/articles": {
     /**
@@ -261,7 +260,6 @@ export interface components {
 export type external = Record<string, never>;
 
 export interface operations {
-
   /**
    * Get recent articles globally
    * @description Get most recent articles globally. Use query parameters to filter results. Auth is optional

@@ -32,7 +32,7 @@ const ArticleCreate = () => {
         },
         ({ article }) => {
           navigate(`/articles/${article.slug}`);
-        }
+        },
       ),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["articles"] });

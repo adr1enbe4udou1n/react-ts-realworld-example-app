@@ -35,7 +35,7 @@ const PostCard = ({
                     "border border-gray-300 text-gray-300 rounded-full px-2 ml-1 text-xs",
                     {
                       "border-green text-green": t === tag,
-                    }
+                    },
                   )}
                 >
                   {t}
