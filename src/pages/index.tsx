@@ -10,7 +10,6 @@ const Home = () => {
       <div className="w-70">
         <div className="bg-gray-100 dark:bg-gray-800 font-sans p-2">
           <h3 className="mb-2 dark:text-white">Popular Tags</h3>
-          <TagList onSelect={setCurrentTags} />
         </div>
       </div>
     </HomeLayout>
