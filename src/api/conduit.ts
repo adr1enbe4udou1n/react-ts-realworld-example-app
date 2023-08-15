@@ -3,6 +3,7 @@
  * Do not make direct changes to the file.
  */
 
+
 export interface paths {
   "/articles": {
     /**
@@ -245,7 +246,7 @@ export interface components {
       detail?: string | null;
       instance?: string | null;
       errors: {
-        [key: string]: string[] | undefined;
+        [key: string]: string[];
       };
       [key: string]: unknown;
     };
@@ -260,6 +261,7 @@ export interface components {
 export type external = Record<string, never>;
 
 export interface operations {
+
   /**
    * Get recent articles globally
    * @description Get most recent articles globally. Use query parameters to filter results. Auth is optional
@@ -321,9 +323,13 @@ export interface operations {
         };
       };
       /** @description Unauthorized */
-      401: never;
+      401: {
+        content: never;
+      };
       /** @description Forbidden */
-      403: never;
+      403: {
+        content: never;
+      };
     };
   };
   /**
@@ -349,9 +355,13 @@ export interface operations {
         };
       };
       /** @description Unauthorized */
-      401: never;
+      401: {
+        content: never;
+      };
       /** @description Forbidden */
-      403: never;
+      403: {
+        content: never;
+      };
     };
   };
   /**
@@ -413,9 +423,13 @@ export interface operations {
         };
       };
       /** @description Unauthorized */
-      401: never;
+      401: {
+        content: never;
+      };
       /** @description Forbidden */
-      403: never;
+      403: {
+        content: never;
+      };
     };
   };
   /**
@@ -431,11 +445,17 @@ export interface operations {
     };
     responses: {
       /** @description Success */
-      200: never;
+      200: {
+        content: never;
+      };
       /** @description Unauthorized */
-      401: never;
+      401: {
+        content: never;
+      };
       /** @description Forbidden */
-      403: never;
+      403: {
+        content: never;
+      };
     };
   };
   /**
@@ -497,9 +517,13 @@ export interface operations {
         };
       };
       /** @description Unauthorized */
-      401: never;
+      401: {
+        content: never;
+      };
       /** @description Forbidden */
-      403: never;
+      403: {
+        content: never;
+      };
     };
   };
   /**
@@ -517,11 +541,17 @@ export interface operations {
     };
     responses: {
       /** @description Success */
-      200: never;
+      200: {
+        content: never;
+      };
       /** @description Unauthorized */
-      401: never;
+      401: {
+        content: never;
+      };
       /** @description Forbidden */
-      403: never;
+      403: {
+        content: never;
+      };
     };
   };
   /**
@@ -545,9 +575,13 @@ export interface operations {
         };
       };
       /** @description Unauthorized */
-      401: never;
+      401: {
+        content: never;
+      };
       /** @description Forbidden */
-      403: never;
+      403: {
+        content: never;
+      };
     };
   };
   /**
@@ -571,9 +605,13 @@ export interface operations {
         };
       };
       /** @description Unauthorized */
-      401: never;
+      401: {
+        content: never;
+      };
       /** @description Forbidden */
-      403: never;
+      403: {
+        content: never;
+      };
     };
   };
   /**
@@ -619,9 +657,13 @@ export interface operations {
         };
       };
       /** @description Unauthorized */
-      401: never;
+      401: {
+        content: never;
+      };
       /** @description Forbidden */
-      403: never;
+      403: {
+        content: never;
+      };
     };
   };
   /**
@@ -645,9 +687,13 @@ export interface operations {
         };
       };
       /** @description Unauthorized */
-      401: never;
+      401: {
+        content: never;
+      };
       /** @description Forbidden */
-      403: never;
+      403: {
+        content: never;
+      };
     };
   };
   /**
@@ -681,9 +727,13 @@ export interface operations {
         };
       };
       /** @description Unauthorized */
-      401: never;
+      401: {
+        content: never;
+      };
       /** @description Forbidden */
-      403: never;
+      403: {
+        content: never;
+      };
     };
   };
   /**
@@ -717,9 +767,13 @@ export interface operations {
         };
       };
       /** @description Unauthorized */
-      401: never;
+      401: {
+        content: never;
+      };
       /** @description Forbidden */
-      403: never;
+      403: {
+        content: never;
+      };
     };
   };
   /**
