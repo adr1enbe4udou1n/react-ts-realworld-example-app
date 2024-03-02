@@ -155,6 +155,18 @@ export interface components {
       updatedAt: string;
       author: components["schemas"]["Profile"];
     };
+    HttpValidationProblemDetails: {
+      type?: string | null;
+      title?: string | null;
+      /** Format: int32 */
+      status?: number | null;
+      detail?: string | null;
+      instance?: string | null;
+      errors: {
+        [key: string]: string[];
+      };
+      [key: string]: unknown;
+    };
     LoginUser: {
       email: string;
       password: string;
@@ -238,18 +250,6 @@ export interface components {
     UserResponse: {
       user: components["schemas"]["User"];
     };
-    ValidationProblemDetails: {
-      type?: string | null;
-      title?: string | null;
-      /** Format: int32 */
-      status?: number | null;
-      detail?: string | null;
-      instance?: string | null;
-      errors: {
-        [key: string]: string[];
-      };
-      [key: string]: unknown;
-    };
   };
   responses: never;
   parameters: never;
@@ -257,6 +257,8 @@ export interface components {
   headers: never;
   pathItems: never;
 }
+
+export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
@@ -282,12 +284,10 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["MultipleArticlesResponse"];
           "application/json": components["schemas"]["MultipleArticlesResponse"];
-          "text/json": components["schemas"]["MultipleArticlesResponse"];
         };
       };
     };
@@ -298,28 +298,22 @@ export interface operations {
    */
   CreateArticle: {
     /** @description Article to create */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": components["schemas"]["NewArticleRequest"];
-        "text/json": components["schemas"]["NewArticleRequest"];
-        "application/*+json": components["schemas"]["NewArticleRequest"];
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["SingleArticleResponse"];
           "application/json": components["schemas"]["SingleArticleResponse"];
-          "text/json": components["schemas"]["SingleArticleResponse"];
         };
       };
       /** @description Bad Request */
       400: {
         content: {
-          "text/plain": components["schemas"]["ValidationProblemDetails"];
-          "application/json": components["schemas"]["ValidationProblemDetails"];
-          "text/json": components["schemas"]["ValidationProblemDetails"];
+          "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
         };
       };
       /** @description Unauthorized */
@@ -346,12 +340,10 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["MultipleArticlesResponse"];
           "application/json": components["schemas"]["MultipleArticlesResponse"];
-          "text/json": components["schemas"]["MultipleArticlesResponse"];
         };
       };
       /** @description Unauthorized */
@@ -376,12 +368,10 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["SingleArticleResponse"];
           "application/json": components["schemas"]["SingleArticleResponse"];
-          "text/json": components["schemas"]["SingleArticleResponse"];
         };
       };
     };
@@ -398,28 +388,22 @@ export interface operations {
       };
     };
     /** @description Article to update */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": components["schemas"]["UpdateArticleRequest"];
-        "text/json": components["schemas"]["UpdateArticleRequest"];
-        "application/*+json": components["schemas"]["UpdateArticleRequest"];
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["SingleArticleResponse"];
           "application/json": components["schemas"]["SingleArticleResponse"];
-          "text/json": components["schemas"]["SingleArticleResponse"];
         };
       };
       /** @description Bad Request */
       400: {
         content: {
-          "text/plain": components["schemas"]["ValidationProblemDetails"];
-          "application/json": components["schemas"]["ValidationProblemDetails"];
-          "text/json": components["schemas"]["ValidationProblemDetails"];
+          "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
         };
       };
       /** @description Unauthorized */
@@ -444,7 +428,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: never;
       };
@@ -470,12 +454,10 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["MultipleCommentsResponse"];
           "application/json": components["schemas"]["MultipleCommentsResponse"];
-          "text/json": components["schemas"]["MultipleCommentsResponse"];
         };
       };
     };
@@ -487,33 +469,26 @@ export interface operations {
   CreateArticleComment: {
     parameters: {
       path: {
-        /** @description Slug of the article that you want to create a comment for */
+        /** @description Slug of the article that you want to create a comments for */
         slug: string;
       };
     };
-    /** @description Comment you want to create */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": components["schemas"]["NewCommentRequest"];
-        "text/json": components["schemas"]["NewCommentRequest"];
-        "application/*+json": components["schemas"]["NewCommentRequest"];
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["SingleCommentResponse"];
           "application/json": components["schemas"]["SingleCommentResponse"];
-          "text/json": components["schemas"]["SingleCommentResponse"];
         };
       };
       /** @description Bad Request */
       400: {
         content: {
-          "text/plain": components["schemas"]["ValidationProblemDetails"];
-          "application/json": components["schemas"]["ValidationProblemDetails"];
-          "text/json": components["schemas"]["ValidationProblemDetails"];
+          "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
         };
       };
       /** @description Unauthorized */
@@ -533,14 +508,13 @@ export interface operations {
   DeleteArticleComment: {
     parameters: {
       path: {
-        /** @description Slug of the article that you want to delete a comment for */
+        /** @description Slug of the article that you want to delete a comments for */
         slug: string;
-        /** @description ID of the comment you want to delete */
         commentId: number;
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: never;
       };
@@ -566,12 +540,10 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["SingleArticleResponse"];
           "application/json": components["schemas"]["SingleArticleResponse"];
-          "text/json": components["schemas"]["SingleArticleResponse"];
         };
       };
       /** @description Unauthorized */
@@ -596,12 +568,10 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["SingleArticleResponse"];
           "application/json": components["schemas"]["SingleArticleResponse"];
-          "text/json": components["schemas"]["SingleArticleResponse"];
         };
       };
       /** @description Unauthorized */
@@ -621,17 +591,14 @@ export interface operations {
   GetProfileByUsername: {
     parameters: {
       path: {
-        /** @description Username of the profile to get */
         username: string;
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["ProfileResponse"];
           "application/json": components["schemas"]["ProfileResponse"];
-          "text/json": components["schemas"]["ProfileResponse"];
         };
       };
     };
@@ -648,12 +615,10 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["ProfileResponse"];
           "application/json": components["schemas"]["ProfileResponse"];
-          "text/json": components["schemas"]["ProfileResponse"];
         };
       };
       /** @description Unauthorized */
@@ -678,12 +643,10 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["ProfileResponse"];
           "application/json": components["schemas"]["ProfileResponse"];
-          "text/json": components["schemas"]["ProfileResponse"];
         };
       };
       /** @description Unauthorized */
@@ -702,12 +665,10 @@ export interface operations {
    */
   GetTags: {
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["TagsResponse"];
           "application/json": components["schemas"]["TagsResponse"];
-          "text/json": components["schemas"]["TagsResponse"];
         };
       };
     };
@@ -718,12 +679,10 @@ export interface operations {
    */
   GetCurrentUser: {
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["UserResponse"];
           "application/json": components["schemas"]["UserResponse"];
-          "text/json": components["schemas"]["UserResponse"];
         };
       };
       /** @description Unauthorized */
@@ -742,28 +701,22 @@ export interface operations {
    */
   UpdateCurrentUser: {
     /** @description User details to update. At least <strong>one</strong> field is required. */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": components["schemas"]["UpdateUserRequest"];
-        "text/json": components["schemas"]["UpdateUserRequest"];
-        "application/*+json": components["schemas"]["UpdateUserRequest"];
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["UserResponse"];
           "application/json": components["schemas"]["UserResponse"];
-          "text/json": components["schemas"]["UserResponse"];
         };
       };
       /** @description Bad Request */
       400: {
         content: {
-          "text/plain": components["schemas"]["ValidationProblemDetails"];
-          "application/json": components["schemas"]["ValidationProblemDetails"];
-          "text/json": components["schemas"]["ValidationProblemDetails"];
+          "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
         };
       };
       /** @description Unauthorized */
@@ -782,28 +735,16 @@ export interface operations {
    */
   CreateUser: {
     /** @description Details of the new user to register */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": components["schemas"]["NewUserRequest"];
-        "text/json": components["schemas"]["NewUserRequest"];
-        "application/*+json": components["schemas"]["NewUserRequest"];
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["UserResponse"];
           "application/json": components["schemas"]["UserResponse"];
-          "text/json": components["schemas"]["UserResponse"];
-        };
-      };
-      /** @description Bad Request */
-      400: {
-        content: {
-          "text/plain": components["schemas"]["ValidationProblemDetails"];
-          "application/json": components["schemas"]["ValidationProblemDetails"];
-          "text/json": components["schemas"]["ValidationProblemDetails"];
         };
       };
     };
@@ -814,28 +755,22 @@ export interface operations {
    */
   Login: {
     /** @description Credentials to use */
-    requestBody?: {
+    requestBody: {
       content: {
         "application/json": components["schemas"]["LoginUserRequest"];
-        "text/json": components["schemas"]["LoginUserRequest"];
-        "application/*+json": components["schemas"]["LoginUserRequest"];
       };
     };
     responses: {
-      /** @description Success */
+      /** @description OK */
       200: {
         content: {
-          "text/plain": components["schemas"]["UserResponse"];
           "application/json": components["schemas"]["UserResponse"];
-          "text/json": components["schemas"]["UserResponse"];
         };
       };
       /** @description Bad Request */
       400: {
         content: {
-          "text/plain": components["schemas"]["ValidationProblemDetails"];
-          "application/json": components["schemas"]["ValidationProblemDetails"];
-          "text/json": components["schemas"]["ValidationProblemDetails"];
+          "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
         };
       };
     };
