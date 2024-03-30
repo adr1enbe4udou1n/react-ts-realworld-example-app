@@ -12,7 +12,7 @@
     "openapi": "openapi-typescript http://localhost:5000/api/v1/docs.json --output src/api/conduit.ts"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.28.6",
+    "@tanstack/react-query": "^5.28.9",
     "classnames": "^2.5.1",
     "date-fns": "^3.6.0",
     "generouted": "^1.18.5",
@@ -21,16 +21,16 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
-    "use-local-storage-state": "^19.1.0"
+    "use-local-storage-state": "^19.2.0"
   },
   "devDependencies": {
     "@iconify-json/carbon": "^1.1.31",
-    "@types/node": "^20.11.30",
-    "@types/react": "^18.2.69",
-    "@types/react-dom": "^18.2.22",
-    "@typescript-eslint/eslint-plugin": "^7.3.1",
-    "@typescript-eslint/parser": "^7.3.1",
-    "@unocss/reset": "^0.58.6",
+    "@types/node": "^20.12.2",
+    "@types/react": "^18.2.73",
+    "@types/react-dom": "^18.2.23",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
+    "@unocss/reset": "^0.58.8",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -39,7 +39,7 @@
     "openapi-typescript": "^6.7.5",
     "prettier": "^3.2.5",
     "typescript": "^5.4.3",
-    "unocss": "^0.58.6",
-    "vite": "^5.2.4"
+    "unocss": "^0.58.8",
+    "vite": "^5.2.7"
   }
 }
