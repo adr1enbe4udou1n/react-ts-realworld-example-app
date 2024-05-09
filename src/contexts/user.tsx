@@ -1,7 +1,7 @@
 // create user context
 
 import { User, getUser } from "@/api";
-import { createContext, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 
 const UserContext = createContext<{
@@ -36,23 +36,24 @@ const UserProvider = ({ children }: { children: JSX.Element }) => {
     }
   };
 
-  const logout = () => {
+  const logout = (): void => {
     setUser(null);
     setToken(null);
   };
 
+  const contextValue = useMemo(
+    () => ({
+      user,
+      loadUser,
+      logout,
+      fetch,
+      isLoggedIn,
+    }),
+    [user, loadUser, logout, fetch, isLoggedIn],
+  );
+
   return (
-    <UserContext.Provider
-      value={{
-        user,
-        loadUser,
-        logout,
-        fetch,
-        isLoggedIn,
-      }}
-    >
-      {children}
-    </UserContext.Provider>
+    <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
   );
 };
 

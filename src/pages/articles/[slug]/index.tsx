@@ -14,17 +14,14 @@ const ArticleShow = () => {
   const navigate = useNavigate();
   const { slug } = useParams<{ slug: string }>();
 
-  if (!slug) {
-    return null;
-  }
-
   const articlesQuery = useQuery({
-    queryFn: () => getArticle({ slug }).then(({ data }) => data.article),
+    queryFn: () => getArticle({ slug: slug! }).then(({ data }) => data.article),
     queryKey: ["articles", slug],
   });
 
   const commentsQuery = useQuery({
-    queryFn: () => getComments({ slug }).then(({ data }) => data.comments),
+    queryFn: () =>
+      getComments({ slug: slug! }).then(({ data }) => data.comments),
     queryKey: ["comments", slug],
   });
 
@@ -34,7 +31,7 @@ const ArticleShow = () => {
 
   const deleteArticleAction = async () => {
     if (confirm("Are you sure?")) {
-      await deleteArticle({ slug });
+      await deleteArticle({ slug: slug! });
 
       navigate("/");
     }
@@ -60,8 +57,7 @@ const ArticleShow = () => {
                     variant="secondary"
                     to={`/articles/${slug}/edit`}
                   >
-                    <i className="i-carbon-edit"></i>
-                    Edit
+                    <i className="i-carbon-edit"></i>Edit
                   </BaseButton>
                   <BaseButton
                     type="button"
@@ -69,8 +65,7 @@ const ArticleShow = () => {
                     variant="secondary"
                     onClick={deleteArticleAction}
                   >
-                    <i className="i-carbon-trash-can"></i>
-                    Delete
+                    <i className="i-carbon-trash-can"></i>Delete
                   </BaseButton>
                 </div>
               )}

@@ -11,10 +11,6 @@ const ArticleEdit = () => {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
 
-  if (!slug) {
-    return null;
-  }
-
   const [form, setForm] = useState<{
     title: string;
     description: string;
@@ -27,7 +23,7 @@ const ArticleEdit = () => {
 
   const { data } = useQuery({
     queryFn: () =>
-      getArticle({ slug }).then(({ data }) => {
+      getArticle({ slug: slug! }).then(({ data }) => {
         setForm({
           title: data.article.title,
           description: data.article.description,
@@ -42,7 +38,7 @@ const ArticleEdit = () => {
   const mutation = useMutation({
     mutationFn: () =>
       handleValidation(updateArticle, {
-        slug,
+        slug: slug!,
         article: form,
       }),
     onSuccess: () => {
