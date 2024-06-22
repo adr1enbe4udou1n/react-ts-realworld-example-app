@@ -1,4 +1,4 @@
-import { handleValidation, updateUser, User } from "@/api";
+import { HandleValidation, updateUser } from "@/api";
 import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
 import RequireAuth from "@/components/guards/RequireAuth";
@@ -27,15 +27,19 @@ const Settings = () => {
       setForm({
         email: userStore.user.email,
         username: userStore.user.username,
-        bio: userStore.user.bio || "",
-        image: userStore.user.image || "",
+        bio: userStore.user.bio ?? "",
+        image: userStore.user.image ?? "",
       });
     }
   }, [userStore?.user]);
 
-  const onSuccess = ({ user }: { user: User }) => {
-    userStore?.loadUser(user);
-    setSuccess(true);
+  const submit = async (handleValidation: HandleValidation) => {
+    const user = await updateUser(form, handleValidation);
+
+    if (user) {
+      userStore?.loadUser(user);
+      setSuccess(true);
+    }
   };
 
   return (
@@ -47,12 +51,7 @@ const Settings = () => {
               Your settings
             </h1>
           </div>
-          <FormValidation
-            className="flex flex-col gap-4"
-            action={() =>
-              handleValidation(updateUser, { user: form }, onSuccess)
-            }
-          >
+          <FormValidation className="flex flex-col gap-4" action={submit}>
             <>
               {success && (
                 <SuccessMessage>

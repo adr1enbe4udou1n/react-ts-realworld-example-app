@@ -10,11 +10,7 @@ const CommentCard = ({ comment, slug }: { comment: Comment; slug: string }) => {
   const userStore = useContext(UserContext);
 
   const mutation = useMutation({
-    mutationFn: () =>
-      deleteComment({
-        slug: slug,
-        commentId: comment.id,
-      }),
+    mutationFn: () => deleteComment(slug, comment.id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments", slug] });
     },
@@ -42,6 +38,7 @@ const CommentCard = ({ comment, slug }: { comment: Comment; slug: string }) => {
           comment.author.username === userStore.user?.username && (
             <div className="flex gap-2 ml-auto">
               <button
+                title="Delete"
                 type="button"
                 className="inline-flex dark:text-white"
                 onClick={deleteCommentAction}

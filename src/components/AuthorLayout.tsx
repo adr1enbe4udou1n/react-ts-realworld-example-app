@@ -11,8 +11,7 @@ const AuthorLayout = ({
   children: React.ReactNode;
 }) => {
   const { data } = useQuery({
-    queryFn: () =>
-      getProfile({ username: author }).then(({ data }) => data.profile),
+    queryFn: () => getProfile(author),
     queryKey: ["profiles", author],
   });
 

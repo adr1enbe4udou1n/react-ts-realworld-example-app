@@ -1,4 +1,4 @@
-import { getArticle, handleValidation, updateArticle } from "@/api";
+import { HandleValidation, getArticle, updateArticle } from "@/api";
 import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
 import RequireAuth from "@/components/guards/RequireAuth";
@@ -23,24 +23,21 @@ const ArticleEdit = () => {
 
   const { data } = useQuery({
     queryFn: () =>
-      getArticle({ slug: slug! }).then(({ data }) => {
+      getArticle(slug!).then((article) => {
         setForm({
-          title: data.article.title,
-          description: data.article.description,
-          body: data.article.body,
+          title: article.title,
+          description: article.description,
+          body: article.body,
         });
 
-        return data.article;
+        return article;
       }),
     queryKey: ["articles", slug],
   });
 
   const mutation = useMutation({
-    mutationFn: () =>
-      handleValidation(updateArticle, {
-        slug: slug!,
-        article: form,
-      }),
+    mutationFn: (handleValidation: HandleValidation) =>
+      updateArticle(slug!, form, handleValidation),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["articles", slug] });
       navigate(`/articles/${slug}`);

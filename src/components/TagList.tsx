@@ -7,14 +7,14 @@ const TagList = ({ onSelect }: { onSelect: (tag: string | null) => void }) => {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
   const { data } = useQuery({
-    queryFn: () => getTags({}).then(({ data }) => data.tags),
+    queryFn: getTags,
     queryKey: ["tags"],
   });
 
   return (
     <ul>
-      {(data || []).map((t, i) => (
-        <li key={i} className="inline-flex">
+      {(data || []).map((t) => (
+        <li key={t} className="inline-flex">
           <button
             type="button"
             className={classNames(

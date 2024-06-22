@@ -1,4 +1,4 @@
-import { handleValidation, login, User } from "@/api";
+import { HandleValidation, login } from "@/api";
 import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
 import RequireNoAuth from "@/components/guards/RequireNoAuth";
@@ -15,9 +15,13 @@ const Login = () => {
     password: string;
   }>({ email: "", password: "" });
 
-  const onSuccess = ({ user }: { user: User }) => {
-    userStore?.loadUser(user);
-    navigate("/");
+  const submit = async (handleValidation: HandleValidation) => {
+    const user = await login(form, handleValidation);
+
+    if (user) {
+      userStore?.loadUser(user);
+      navigate("/");
+    }
   };
 
   return (
@@ -32,10 +36,7 @@ const Login = () => {
               No account yet ?
             </Link>
           </div>
-          <FormValidation
-            className="flex flex-col gap-4"
-            action={() => handleValidation(login, { user: form }, onSuccess)}
-          >
+          <FormValidation className="flex flex-col gap-4" action={submit}>
             <div>
               <input
                 type="email"

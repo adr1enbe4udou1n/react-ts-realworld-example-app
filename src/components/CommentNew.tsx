@@ -1,4 +1,4 @@
-import { Article, createComment, handleValidation } from "@/api";
+import { HandleValidation, Article, createComment } from "@/api";
 import { UserContext } from "@/contexts/user";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext, useState } from "react";
@@ -11,13 +11,14 @@ const CommentNew = ({ article }: { article: Article }) => {
   const [body, setBody] = useState("");
 
   const mutation = useMutation({
-    mutationFn: () =>
-      handleValidation(createComment, {
-        slug: article.slug,
-        comment: {
+    mutationFn: (handleValidation: HandleValidation) =>
+      createComment(
+        article.slug,
+        {
           body,
         },
-      }),
+        handleValidation,
+      ),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments", article.slug] });
       setBody("");

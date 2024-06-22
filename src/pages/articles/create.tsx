@@ -1,4 +1,4 @@
-import { createArticle, handleValidation } from "@/api";
+import { createArticle, HandleValidation } from "@/api";
 import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
 import RequireAuth from "@/components/guards/RequireAuth";
@@ -24,16 +24,13 @@ const ArticleCreate = () => {
   });
 
   const mutation = useMutation({
-    mutationFn: () =>
-      handleValidation(
-        createArticle,
-        {
-          article: form,
-        },
-        ({ article }) => {
-          navigate(`/articles/${article.slug}`);
-        },
-      ),
+    mutationFn: async (handleValidation: HandleValidation) => {
+      const article = await createArticle(form, handleValidation);
+
+      if (article) {
+        navigate(`/articles/${article.slug}`);
+      }
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["articles"] });
     },
@@ -83,8 +80,8 @@ const ArticleCreate = () => {
               />
             </div>
             <div>
-              {form.tagList.map((tag, i) => (
-                <span key={i} className="inline-flex">
+              {form.tagList.map((tag) => (
+                <span key={tag} className="inline-flex">
                   {tag}
                 </span>
               ))}

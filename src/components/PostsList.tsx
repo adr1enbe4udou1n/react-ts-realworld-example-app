@@ -28,9 +28,9 @@ const PostsList = ({
       : getArticles({
           limit,
           offset,
-          tag: tag || undefined,
-          author: author || undefined,
-          favorited: favorited || undefined,
+          tag: tag ?? undefined,
+          author: author ?? undefined,
+          favorited: favorited ?? undefined,
         });
   };
 
@@ -44,12 +44,12 @@ const PostsList = ({
   }, [tag, author, favorited]);
 
   const articles = articlesQuery.data?.articles || [];
-  const total = articlesQuery.data?.articlesCount || 0;
+  const total = articlesQuery.data?.articlesCount ?? 0;
 
   return (
     <>
-      {articles.map((article, i) => (
-        <PostCard key={i} article={article} tag={tag} />
+      {articles.map((article) => (
+        <PostCard key={article.slug} article={article} tag={tag} />
       ))}
       <Pagination
         page={page}

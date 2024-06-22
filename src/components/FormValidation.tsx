@@ -1,4 +1,4 @@
-import { ValidationProblemDetails } from "@/api";
+import { HandleValidation, ValidationProblemDetails } from "@/api";
 import { FormEvent, useState } from "react";
 import AlertMessage from "./AlertMessage";
 
@@ -8,19 +8,19 @@ const FormValidation = ({
   className,
 }: {
   children: JSX.Element[];
-  action: () => Promise<ValidationProblemDetails | undefined>;
+  action: (handleValidation: HandleValidation) => void;
   className?: string;
 }) => {
-  const [errors, setErrors] = useState<ValidationProblemDetails | null>(null);
+  const [errors, setErrors] = useState<
+    ValidationProblemDetails | undefined | null
+  >(null);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const errorResponse = await action();
-
-    if (errorResponse) {
-      setErrors(errorResponse);
-    }
+    action((errors) => {
+      setErrors(errors);
+    });
   };
 
   return (

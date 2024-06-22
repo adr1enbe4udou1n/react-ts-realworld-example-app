@@ -1,4 +1,4 @@
-import { handleValidation, register, User } from "@/api";
+import { HandleValidation, register } from "@/api";
 import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
 import RequireNoAuth from "@/components/guards/RequireNoAuth";
@@ -16,9 +16,13 @@ const Register = () => {
     password: string;
   }>({ username: "", email: "", password: "" });
 
-  const onSuccess = ({ user }: { user: User }) => {
-    userStore?.loadUser(user);
-    navigate("/");
+  const submit = async (handleValidation: HandleValidation) => {
+    const user = await register(form, handleValidation);
+
+    if (user) {
+      userStore?.loadUser(user);
+      navigate("/");
+    }
   };
 
   return (
@@ -33,10 +37,7 @@ const Register = () => {
               Have an account ?
             </Link>
           </div>
-          <FormValidation
-            className="flex flex-col gap-4"
-            action={() => handleValidation(register, { user: form }, onSuccess)}
-          >
+          <FormValidation className="flex flex-col gap-4" action={submit}>
             <div>
               <input
                 className="form-control"

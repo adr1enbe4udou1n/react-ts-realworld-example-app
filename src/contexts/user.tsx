@@ -28,9 +28,9 @@ const UserProvider = ({ children }: { children: JSX.Element }) => {
       return;
     }
     try {
-      const response = await getUser({});
+      const user = await getUser();
 
-      loadUser(response.data.user);
+      loadUser(user);
     } catch (e) {
       logout();
     }

@@ -15,13 +15,12 @@ const ArticleShow = () => {
   const { slug } = useParams<{ slug: string }>();
 
   const articlesQuery = useQuery({
-    queryFn: () => getArticle({ slug: slug! }).then(({ data }) => data.article),
+    queryFn: () => getArticle(slug!),
     queryKey: ["articles", slug],
   });
 
   const commentsQuery = useQuery({
-    queryFn: () =>
-      getComments({ slug: slug! }).then(({ data }) => data.comments),
+    queryFn: () => getComments(slug!),
     queryKey: ["comments", slug],
   });
 
@@ -31,7 +30,7 @@ const ArticleShow = () => {
 
   const deleteArticleAction = async () => {
     if (confirm("Are you sure?")) {
-      await deleteArticle({ slug: slug! });
+      await deleteArticle(slug!);
 
       navigate("/");
     }
