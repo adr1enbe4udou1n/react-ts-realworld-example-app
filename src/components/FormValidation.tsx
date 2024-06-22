@@ -15,7 +15,7 @@ const FormValidation = ({
     ValidationProblemDetails | undefined | null
   >(null);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     action((errors) => {
