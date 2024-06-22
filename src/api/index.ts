@@ -1,5 +1,4 @@
-import createClient from "openapi-fetch";
-import type { Middleware } from "openapi-fetch";
+import createClient, { Middleware } from "openapi-fetch";
 
 import type { components, paths } from "./conduit";
 
