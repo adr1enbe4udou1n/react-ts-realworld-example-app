@@ -13,7 +13,7 @@
     "openapi": "openapi-typescript http://localhost:5000/api/v1/docs.json --output src/api/conduit.ts"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.48.0",
+    "@tanstack/react-query": "^5.49.0",
     "classnames": "^2.5.1",
     "date-fns": "^3.6.0",
     "generouted": "^1.19.5",
