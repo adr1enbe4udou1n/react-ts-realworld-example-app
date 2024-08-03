@@ -31,7 +31,7 @@ const UserProvider = ({ children }: { children: JSX.Element }) => {
       const user = await getUser();
 
       loadUser(user);
-    } catch (e) {
+    } catch {
       logout();
     }
   };
