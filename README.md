@@ -2,8 +2,6 @@
 
 The frontend side **React 18** codebase containing realworld example that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API. Written fully in **Typescript**.
 
-[![CI](https://concourse.okami101.io/api/v1/teams/main/pipelines/conduit-react-ts/badge)](https://concourse.okami101.io/teams/main/pipelines/conduit-react-ts)
-
 ## [RealWorld](https://github.com/gothinkster/realworld)
 
 This codebase was created to demonstrate a fully fledged frontend application built with last version of **React** that adhere to the conduit API specification.
