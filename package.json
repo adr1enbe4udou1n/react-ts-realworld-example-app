@@ -14,7 +14,7 @@
     "openapi": "openapi-typescript http://localhost:5000/api/v1/docs.json --output src/api/conduit.ts"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.51.24",
+    "@tanstack/react-query": "^5.52.1",
     "classnames": "^2.5.1",
     "date-fns": "^3.6.0",
     "generouted": "^1.19.6",
@@ -30,8 +30,8 @@
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",
-    "@types/node": "^22.4.1",
-    "@types/react": "^18.3.3",
+    "@types/node": "^22.5.0",
+    "@types/react": "^18.3.4",
     "@types/react-dom": "^18.3.0",
     "@unocss/reset": "^0.62.2",
     "@vitejs/plugin-react": "^4.3.1",
@@ -45,9 +45,9 @@
     "openapi-typescript": "^7.3.0",
     "prettier": "^3.3.3",
     "typescript": "^5.5.4",
-    "typescript-eslint": "^8.1.0",
+    "typescript-eslint": "^8.2.0",
     "unocss": "^0.62.2",
-    "vite": "^5.4.1",
+    "vite": "^5.4.2",
     "vitest": "^2.0.5"
   }
 }
