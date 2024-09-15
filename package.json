@@ -14,15 +14,15 @@
     "openapi": "openapi-typescript http://localhost:5000/api/v1/docs.json --output src/api/conduit.ts"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.55.0",
+    "@tanstack/react-query": "^5.56.2",
     "classnames": "^2.5.1",
     "date-fns": "^3.6.0",
     "generouted": "^1.19.6",
-    "marked": "^14.1.1",
+    "marked": "^14.1.2",
     "openapi-fetch": "^0.12.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.26.1",
+    "react-router-dom": "^6.26.2",
     "use-local-storage-state": "^19.4.0"
   },
   "devDependencies": {
@@ -30,24 +30,24 @@
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
-    "@types/node": "^22.5.4",
+    "@types/node": "^22.5.5",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@unocss/reset": "^0.62.3",
     "@vitejs/plugin-react": "^4.3.1",
-    "@vitest/coverage-v8": "^2.0.5",
+    "@vitest/coverage-v8": "^2.1.1",
     "eslint": "^9.10.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-react": "^7.35.2",
+    "eslint-plugin-react": "^7.36.1",
     "globals": "^15.9.0",
     "jsdom": "^25.0.0",
     "openapi-typescript": "^7.4.0",
     "prettier": "^3.3.3",
-    "typescript": "^5.5.4",
-    "typescript-eslint": "^8.4.0",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.5.0",
     "unocss": "^0.62.3",
-    "vite": "^5.4.3",
-    "vitest": "^2.0.5"
+    "vite": "^5.4.5",
+    "vitest": "^2.1.1"
   }
 }
