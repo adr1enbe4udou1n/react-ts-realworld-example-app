@@ -1,7 +1,5 @@
-// create user context
-
 import { User, getUser } from "@/api";
-import { createContext, useMemo, useState } from "react";
+import { createContext, JSX, useMemo, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 
 const UserContext = createContext<{

@@ -1,5 +1,5 @@
 import { UserContext } from "@/contexts/user";
-import { useContext } from "react";
+import { JSX, useContext } from "react";
 import { Navigate } from "react-router-dom";
 
 const RequireNoAuth = ({ children }: { children: JSX.Element }) => {
