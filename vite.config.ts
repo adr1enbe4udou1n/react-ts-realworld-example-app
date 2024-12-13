@@ -1,5 +1,6 @@
 import UnoCSS from "unocss/vite";
 import react from "@vitejs/plugin-react";
+import generouted from "@generouted/react-router/plugin";
 import { defineConfig } from "vite";
 import { fileURLToPath, URL } from "node:url";
 
@@ -13,5 +14,5 @@ export default defineConfig({
   optimizeDeps: {
     include: ["react/jsx-runtime"],
   },
-  plugins: [react(), UnoCSS()],
+  plugins: [react(), generouted(), UnoCSS()],
 });

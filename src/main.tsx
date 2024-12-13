@@ -6,7 +6,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { UserProvider } from "./contexts/user";
-import { Routes } from "generouted/react-router";
+import { Routes } from "@generouted/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
