@@ -26,6 +26,7 @@
     "use-local-storage-state": "^19.5.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.19.0",
     "@iconify-json/carbon": "^1.2.5",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
