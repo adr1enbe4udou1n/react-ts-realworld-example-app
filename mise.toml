@@ -21,6 +21,3 @@ run = [
 [tools]
 node = "24"
 pnpm = "10"
-
-[settings]
-task_run_auto_install = false
