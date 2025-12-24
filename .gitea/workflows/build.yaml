@@ -16,8 +16,6 @@ jobs:
           node-version: 24
           cache: "pnpm"
       - uses: jdx/mise-action@v3
-        with:
-          install: false
       - run: mise ci
       - name: Cache sonar
         uses: actions/cache@v5
