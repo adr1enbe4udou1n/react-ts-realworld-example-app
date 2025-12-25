@@ -21,3 +21,4 @@ run = [
 [tools]
 node = "24"
 pnpm = "10"
+sonar-scanner-cli = "8"
