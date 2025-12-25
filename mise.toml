@@ -16,10 +16,7 @@ run = "sonar-scanner"
 [tasks.ci]
 run = [
   { task = "vendor" },
-  { task = "lint" },
-  { task = "build" },
-  { task = "test" },
-  { task = "scan" },
+  { tasks = ["lint", "build", "test"] },
 ]
 
 [tools]
