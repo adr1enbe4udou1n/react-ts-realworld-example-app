@@ -1,5 +1,5 @@
-import { User, getUser } from "@/api";
-import { createContext, JSX, useMemo, useState } from "react";
+import { type User, getUser } from "@/api";
+import { createContext, type JSX, useMemo, useState } from "react";
 import useLocalStorageState from "use-local-storage-state";
 
 const UserContext = createContext<{
