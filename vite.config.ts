@@ -1,7 +1,7 @@
 import UnoCSS from "unocss/vite";
 import react from "@vitejs/plugin-react";
 import generouted from "@generouted/react-router/plugin";
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import { fileURLToPath, URL } from "node:url";
 
 // https://vitejs.dev/config/
