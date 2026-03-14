@@ -1,8 +1,8 @@
 import UnoCSS from "unocss/vite";
 import react from "@vitejs/plugin-react";
-import generouted from "@generouted/react-router/plugin";
 import { defineConfig } from "vitest/config";
 import { fileURLToPath, URL } from "node:url";
+import { tanstackRouter } from "@tanstack/router-plugin/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,5 +14,13 @@ export default defineConfig({
   optimizeDeps: {
     include: ["react/jsx-runtime"],
   },
-  plugins: [react(), generouted(), UnoCSS()],
+  plugins: [
+    tanstackRouter({
+      target: "react",
+      autoCodeSplitting: true,
+      routesDirectory: "src/pages",
+    }),
+    react(),
+    UnoCSS(),
+  ],
 });

@@ -1,10 +1,14 @@
-import AppFooter from "@/components/AppFooter";
+import { Outlet, createRootRoute } from "@tanstack/react-router";
 import AppHeader from "@/components/AppHeader";
+import AppFooter from "@/components/AppFooter";
 import { useContext } from "react";
-import { Outlet } from "react-router-dom";
 import { UserContext } from "@/contexts/user";
 
-const App = () => {
+export const Route = createRootRoute({
+  component: RootComponent,
+});
+
+function RootComponent() {
   const userStore = useContext(UserContext);
 
   if (!userStore?.user) {
@@ -20,6 +24,4 @@ const App = () => {
       <AppFooter />
     </div>
   );
-};
-
-export default App;
+}
