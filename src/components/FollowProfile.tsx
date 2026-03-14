@@ -1,4 +1,4 @@
-import { followProfileToggle, Profile } from "@/api";
+import { followProfileToggle, type Profile } from "@/api";
 import { UserContext } from "@/contexts/user";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
@@ -10,7 +10,7 @@ const FollowProfile = ({
   className,
 }: {
   profile: Profile;
-  className?: string | undefined;
+  className?: string;
 }) => {
   const queryClient = useQueryClient();
   const userStore = useContext(UserContext);

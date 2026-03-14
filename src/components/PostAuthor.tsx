@@ -1,4 +1,4 @@
-import { Article } from "@/api";
+import { type Article } from "@/api";
 import classNames from "classnames";
 import FavoriteArticle from "./FavoriteArticle";
 import FollowProfile from "./FollowProfile";

@@ -1,4 +1,4 @@
-import { HandleValidation, updateUser } from "@/api";
+import { type HandleValidation, updateUser } from "@/api";
 import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
 import RequireAuth from "@/components/guards/RequireAuth";

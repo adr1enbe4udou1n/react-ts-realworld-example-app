@@ -1,4 +1,4 @@
-import { createArticle, HandleValidation } from "@/api";
+import { createArticle, type HandleValidation } from "@/api";
 import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
 import RequireAuth from "@/components/guards/RequireAuth";

@@ -1,4 +1,4 @@
-import { Comment, deleteComment } from "@/api";
+import { type Comment, deleteComment } from "@/api";
 import { UserContext } from "@/contexts/user";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";

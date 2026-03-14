@@ -1,4 +1,4 @@
-import { HandleValidation, Article, createComment } from "@/api";
+import { type HandleValidation, type Article, createComment } from "@/api";
 import { UserContext } from "@/contexts/user";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext, useState } from "react";

@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { Profile } from "@/api";
+import { type Profile } from "@/api";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 
@@ -12,7 +12,7 @@ const ProfileCard = ({
   author: Profile;
   date: string;
   inline?: boolean;
-  className?: string | undefined;
+  className?: string;
 }) => {
   const getDate = (date: string) => {
     const month = new Date(date).toLocaleString("en", { month: "long" });

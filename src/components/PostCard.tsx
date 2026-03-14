@@ -1,4 +1,4 @@
-import { Article } from "@/api";
+import { type Article } from "@/api";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import FavoriteArticle from "./FavoriteArticle";

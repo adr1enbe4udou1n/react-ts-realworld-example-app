@@ -1,4 +1,4 @@
-import { ValidationProblemDetails } from "@/api";
+import { type ValidationProblemDetails } from "@/api";
 
 const AlertMessage = ({
   errors,
@@ -12,6 +12,7 @@ const AlertMessage = ({
       <div className="bg-red p-4 rounded text-white relative">
         <button
           type="button"
+          title="Close"
           className="absolute right-4 top-4"
           onClick={onClose}
         >

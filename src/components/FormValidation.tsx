@@ -1,5 +1,5 @@
-import { HandleValidation, ValidationProblemDetails } from "@/api";
-import { FormEvent, JSX, useState } from "react";
+import { type HandleValidation, type ValidationProblemDetails } from "@/api";
+import { type SubmitEvent, type JSX, useState } from "react";
 import AlertMessage from "./AlertMessage";
 
 const FormValidation = ({
@@ -15,7 +15,7 @@ const FormValidation = ({
     ValidationProblemDetails | undefined | null
   >(null);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     action((errors) => {
