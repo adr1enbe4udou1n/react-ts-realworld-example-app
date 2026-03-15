@@ -3,9 +3,8 @@ import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
 import RequireNoAuth from "@/components/guards/RequireNoAuth";
 import { UserContext } from "@/contexts/user";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
 
 const Register = () => {
   const userStore = useContext(UserContext);

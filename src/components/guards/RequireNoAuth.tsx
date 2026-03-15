@@ -1,6 +1,6 @@
 import { UserContext } from "@/contexts/user";
-import { JSX, useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate } from "@tanstack/react-router";
+import { type JSX, useContext } from "react";
 
 const RequireNoAuth = ({ children }: { children: JSX.Element }) => {
   const userStore = useContext(UserContext);

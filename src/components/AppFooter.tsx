@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import useLocalStorageState from "use-local-storage-state";
 
 const AppFooter = () => {

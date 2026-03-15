@@ -4,9 +4,8 @@ import FormValidation from "@/components/FormValidation";
 import RequireAuth from "@/components/guards/RequireAuth";
 import TagInput from "@/components/TagInput";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const ArticleCreate = () => {
   const queryClient = useQueryClient();
@@ -29,7 +28,7 @@ const ArticleCreate = () => {
       const article = await createArticle(form, handleValidation);
 
       if (article) {
-        navigate(`/articles/${article.slug}`);
+        navigate({ to: `/articles/${article.slug}` });
       }
     },
     onSuccess: () => {

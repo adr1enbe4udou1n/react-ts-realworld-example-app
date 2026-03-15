@@ -1,8 +1,7 @@
 import { UserContext } from "@/contexts/user";
-import { useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import classNames from "classnames";
 import { useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
 
 const AppHeader = () => {
   const userStore = useContext(UserContext);

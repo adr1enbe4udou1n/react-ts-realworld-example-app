@@ -1,8 +1,8 @@
 import { type Article } from "@/api";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
 import FavoriteArticle from "./FavoriteArticle";
 import ProfileCard from "./ProfileCard";
+import { Link } from "@tanstack/react-router";
 
 const PostCard = ({
   article,
@@ -44,7 +44,8 @@ const PostCard = ({
             </div>
           </footer>
           <Link
-            to={`/articles/${article.slug}`}
+            to="/articles/$slug"
+            params={{ slug: article.slug }}
             className="absolute inset-0"
           ></Link>
         </div>
