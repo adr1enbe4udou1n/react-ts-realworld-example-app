@@ -4,6 +4,7 @@ import FormValidation from "@/components/FormValidation";
 import RequireAuth from "@/components/guards/RequireAuth";
 import TagInput from "@/components/TagInput";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -97,5 +98,9 @@ const ArticleCreate = () => {
     </RequireAuth>
   );
 };
+
+export const Route = createFileRoute("/articles/create")({
+  component: ArticleCreate,
+});
 
 export default ArticleCreate;

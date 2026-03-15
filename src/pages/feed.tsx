@@ -1,5 +1,6 @@
 import RequireAuth from "@/components/guards/RequireAuth";
 import HomeLayout from "@/components/HomeLayout";
+import { createFileRoute } from "@tanstack/react-router";
 
 const Feed = () => {
   return (
@@ -8,5 +9,9 @@ const Feed = () => {
     </RequireAuth>
   );
 };
+
+export const Route = createFileRoute("/feed")({
+  component: Feed,
+});
 
 export default Feed;

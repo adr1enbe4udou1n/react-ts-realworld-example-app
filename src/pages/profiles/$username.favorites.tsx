@@ -1,5 +1,6 @@
 import AuthorLayout from "@/components/AuthorLayout";
 import PostsList from "@/components/PostsList";
+import { createFileRoute } from "@tanstack/react-router";
 import { useParams } from "react-router-dom";
 
 const ProfileFavorites = () => {
@@ -15,5 +16,9 @@ const ProfileFavorites = () => {
     </AuthorLayout>
   );
 };
+
+export const Route = createFileRoute("/profiles/$username/favorites")({
+  component: ProfileFavorites,
+});
 
 export default ProfileFavorites;

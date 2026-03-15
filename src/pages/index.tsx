@@ -1,5 +1,6 @@
 import HomeLayout from "@/components/HomeLayout";
 import TagList from "@/components/TagList";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
 const Home = () => {
@@ -16,5 +17,9 @@ const Home = () => {
     </HomeLayout>
   );
 };
+
+export const Route = createFileRoute("/")({
+  component: Home,
+});
 
 export default Home;

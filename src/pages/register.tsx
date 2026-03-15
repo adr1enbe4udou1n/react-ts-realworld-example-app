@@ -3,8 +3,9 @@ import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
 import RequireNoAuth from "@/components/guards/RequireNoAuth";
 import { UserContext } from "@/contexts/user";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const userStore = useContext(UserContext);
@@ -21,7 +22,7 @@ const Register = () => {
 
     if (user) {
       userStore?.loadUser(user);
-      navigate("/");
+      navigate({ to: "/" });
     }
   };
 
@@ -78,5 +79,9 @@ const Register = () => {
     </RequireNoAuth>
   );
 };
+
+export const Route = createFileRoute("/register")({
+  component: Register,
+});
 
 export default Register;

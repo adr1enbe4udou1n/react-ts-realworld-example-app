@@ -2,8 +2,8 @@ import { followProfileToggle, type Profile } from "@/api";
 import { UserContext } from "@/contexts/user";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import BaseButton from "./BaseButton";
+import { useNavigate } from "@tanstack/react-router";
 
 const FollowProfile = ({
   profile,
@@ -37,7 +37,7 @@ const FollowProfile = ({
 
   const toggleFollow = () => {
     if (!userStore?.isLoggedIn) {
-      navigate("/login");
+      navigate({ to: "/login" });
     }
 
     mutation.mutate(profile);

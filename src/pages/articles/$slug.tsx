@@ -6,6 +6,7 @@ import MarkdownViewer from "@/components/MarkdownViewer";
 import PostAuthor from "@/components/PostAuthor";
 import { UserContext } from "@/contexts/user";
 import { useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
 import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -90,5 +91,9 @@ const ArticleShow = () => {
     </>
   );
 };
+
+export const Route = createFileRoute("/articles/$slug")({
+  component: ArticleShow,
+});
 
 export default ArticleShow;

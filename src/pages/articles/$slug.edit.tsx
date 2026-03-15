@@ -3,8 +3,9 @@ import BaseButton from "@/components/BaseButton";
 import FormValidation from "@/components/FormValidation";
 import RequireAuth from "@/components/guards/RequireAuth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const ArticleEdit = () => {
   const queryClient = useQueryClient();
@@ -40,7 +41,7 @@ const ArticleEdit = () => {
       updateArticle(slug!, form, handleValidation),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["articles", slug] });
-      navigate(`/articles/${slug}`);
+      navigate({ to: `/articles/${slug}` });
     },
   });
 
@@ -101,5 +102,9 @@ const ArticleEdit = () => {
     </RequireAuth>
   );
 };
+
+export const Route = createFileRoute("/articles/$slug/edit")({
+  component: ArticleEdit,
+});
 
 export default ArticleEdit;

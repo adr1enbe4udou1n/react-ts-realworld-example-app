@@ -4,6 +4,7 @@ import FormValidation from "@/components/FormValidation";
 import RequireAuth from "@/components/guards/RequireAuth";
 import SuccessMessage from "@/components/SuccessMessage";
 import { UserContext } from "@/contexts/user";
+import { createFileRoute } from "@tanstack/react-router";
 import { useContext, useEffect, useState } from "react";
 
 const Settings = () => {
@@ -106,5 +107,9 @@ const Settings = () => {
     </RequireAuth>
   );
 };
+
+export const Route = createFileRoute("/settings")({
+  component: Settings,
+});
 
 export default Settings;

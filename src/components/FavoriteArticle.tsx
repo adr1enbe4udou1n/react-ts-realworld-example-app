@@ -2,8 +2,8 @@ import { type Article, favoriteArticleToggle } from "@/api";
 import { UserContext } from "@/contexts/user";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import BaseButton from "./BaseButton";
+import { useNavigate } from "@tanstack/react-router";
 
 const FavoriteArticle = ({
   article,
@@ -30,7 +30,7 @@ const FavoriteArticle = ({
 
   const toggleFavorite = () => {
     if (!userStore?.isLoggedIn) {
-      navigate("/login");
+      navigate({ to: "/login" });
     }
 
     mutation.mutate(article);

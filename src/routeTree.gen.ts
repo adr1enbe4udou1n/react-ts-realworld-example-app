@@ -9,27 +9,264 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './pages/__root'
+import { Route as SettingsRouteImport } from './pages/settings'
+import { Route as RegisterRouteImport } from './pages/register'
+import { Route as LoginRouteImport } from './pages/login'
+import { Route as FeedRouteImport } from './pages/feed'
+import { Route as IndexRouteImport } from './pages/index'
+import { Route as ProfilesUsernameRouteImport } from './pages/profiles/$username'
+import { Route as ArticlesCreateRouteImport } from './pages/articles/create'
+import { Route as ArticlesSlugRouteImport } from './pages/articles/$slug'
+import { Route as ProfilesUsernameFavoritesRouteImport } from './pages/profiles/$username.favorites'
+import { Route as ArticlesSlugEditRouteImport } from './pages/articles/$slug.edit'
 
-export interface FileRoutesByFullPath {}
-export interface FileRoutesByTo {}
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeedRoute = FeedRouteImport.update({
+  id: '/feed',
+  path: '/feed',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfilesUsernameRoute = ProfilesUsernameRouteImport.update({
+  id: '/profiles/$username',
+  path: '/profiles/$username',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticlesCreateRoute = ArticlesCreateRouteImport.update({
+  id: '/articles/create',
+  path: '/articles/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
+  id: '/articles/$slug',
+  path: '/articles/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfilesUsernameFavoritesRoute =
+  ProfilesUsernameFavoritesRouteImport.update({
+    id: '/favorites',
+    path: '/favorites',
+    getParentRoute: () => ProfilesUsernameRoute,
+  } as any)
+const ArticlesSlugEditRoute = ArticlesSlugEditRouteImport.update({
+  id: '/edit',
+  path: '/edit',
+  getParentRoute: () => ArticlesSlugRoute,
+} as any)
+
+export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '/feed': typeof FeedRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/settings': typeof SettingsRoute
+  '/articles/$slug': typeof ArticlesSlugRouteWithChildren
+  '/articles/create': typeof ArticlesCreateRoute
+  '/profiles/$username': typeof ProfilesUsernameRouteWithChildren
+  '/articles/$slug/edit': typeof ArticlesSlugEditRoute
+  '/profiles/$username/favorites': typeof ProfilesUsernameFavoritesRoute
+}
+export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/feed': typeof FeedRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/settings': typeof SettingsRoute
+  '/articles/$slug': typeof ArticlesSlugRouteWithChildren
+  '/articles/create': typeof ArticlesCreateRoute
+  '/profiles/$username': typeof ProfilesUsernameRouteWithChildren
+  '/articles/$slug/edit': typeof ArticlesSlugEditRoute
+  '/profiles/$username/favorites': typeof ProfilesUsernameFavoritesRoute
+}
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/feed': typeof FeedRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/settings': typeof SettingsRoute
+  '/articles/$slug': typeof ArticlesSlugRouteWithChildren
+  '/articles/create': typeof ArticlesCreateRoute
+  '/profiles/$username': typeof ProfilesUsernameRouteWithChildren
+  '/articles/$slug/edit': typeof ArticlesSlugEditRoute
+  '/profiles/$username/favorites': typeof ProfilesUsernameFavoritesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: never
+  fullPaths:
+    | '/'
+    | '/feed'
+    | '/login'
+    | '/register'
+    | '/settings'
+    | '/articles/$slug'
+    | '/articles/create'
+    | '/profiles/$username'
+    | '/articles/$slug/edit'
+    | '/profiles/$username/favorites'
   fileRoutesByTo: FileRoutesByTo
-  to: never
-  id: '__root__'
+  to:
+    | '/'
+    | '/feed'
+    | '/login'
+    | '/register'
+    | '/settings'
+    | '/articles/$slug'
+    | '/articles/create'
+    | '/profiles/$username'
+    | '/articles/$slug/edit'
+    | '/profiles/$username/favorites'
+  id:
+    | '__root__'
+    | '/'
+    | '/feed'
+    | '/login'
+    | '/register'
+    | '/settings'
+    | '/articles/$slug'
+    | '/articles/create'
+    | '/profiles/$username'
+    | '/articles/$slug/edit'
+    | '/profiles/$username/favorites'
   fileRoutesById: FileRoutesById
 }
-export interface RootRouteChildren {}
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {}
+export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  FeedRoute: typeof FeedRoute
+  LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
+  SettingsRoute: typeof SettingsRoute
+  ArticlesSlugRoute: typeof ArticlesSlugRouteWithChildren
+  ArticlesCreateRoute: typeof ArticlesCreateRoute
+  ProfilesUsernameRoute: typeof ProfilesUsernameRouteWithChildren
 }
 
-const rootRouteChildren: RootRouteChildren = {}
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/feed': {
+      id: '/feed'
+      path: '/feed'
+      fullPath: '/feed'
+      preLoaderRoute: typeof FeedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profiles/$username': {
+      id: '/profiles/$username'
+      path: '/profiles/$username'
+      fullPath: '/profiles/$username'
+      preLoaderRoute: typeof ProfilesUsernameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/articles/create': {
+      id: '/articles/create'
+      path: '/articles/create'
+      fullPath: '/articles/create'
+      preLoaderRoute: typeof ArticlesCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/articles/$slug': {
+      id: '/articles/$slug'
+      path: '/articles/$slug'
+      fullPath: '/articles/$slug'
+      preLoaderRoute: typeof ArticlesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profiles/$username/favorites': {
+      id: '/profiles/$username/favorites'
+      path: '/favorites'
+      fullPath: '/profiles/$username/favorites'
+      preLoaderRoute: typeof ProfilesUsernameFavoritesRouteImport
+      parentRoute: typeof ProfilesUsernameRoute
+    }
+    '/articles/$slug/edit': {
+      id: '/articles/$slug/edit'
+      path: '/edit'
+      fullPath: '/articles/$slug/edit'
+      preLoaderRoute: typeof ArticlesSlugEditRouteImport
+      parentRoute: typeof ArticlesSlugRoute
+    }
+  }
+}
+
+interface ArticlesSlugRouteChildren {
+  ArticlesSlugEditRoute: typeof ArticlesSlugEditRoute
+}
+
+const ArticlesSlugRouteChildren: ArticlesSlugRouteChildren = {
+  ArticlesSlugEditRoute: ArticlesSlugEditRoute,
+}
+
+const ArticlesSlugRouteWithChildren = ArticlesSlugRoute._addFileChildren(
+  ArticlesSlugRouteChildren,
+)
+
+interface ProfilesUsernameRouteChildren {
+  ProfilesUsernameFavoritesRoute: typeof ProfilesUsernameFavoritesRoute
+}
+
+const ProfilesUsernameRouteChildren: ProfilesUsernameRouteChildren = {
+  ProfilesUsernameFavoritesRoute: ProfilesUsernameFavoritesRoute,
+}
+
+const ProfilesUsernameRouteWithChildren =
+  ProfilesUsernameRoute._addFileChildren(ProfilesUsernameRouteChildren)
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  FeedRoute: FeedRoute,
+  LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
+  SettingsRoute: SettingsRoute,
+  ArticlesSlugRoute: ArticlesSlugRouteWithChildren,
+  ArticlesCreateRoute: ArticlesCreateRoute,
+  ProfilesUsernameRoute: ProfilesUsernameRouteWithChildren,
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()

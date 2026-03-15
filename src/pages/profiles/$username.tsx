@@ -1,5 +1,6 @@
 import AuthorLayout from "@/components/AuthorLayout";
 import PostsList from "@/components/PostsList";
+import { createFileRoute } from "@tanstack/react-router";
 import { useParams } from "react-router-dom";
 
 const ProfileShow = () => {
@@ -15,5 +16,9 @@ const ProfileShow = () => {
     </AuthorLayout>
   );
 };
+
+export const Route = createFileRoute("/profiles/$username")({
+  component: ProfileShow,
+});
 
 export default ProfileShow;
