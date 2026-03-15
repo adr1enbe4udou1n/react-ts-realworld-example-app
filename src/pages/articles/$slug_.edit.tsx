@@ -102,7 +102,7 @@ const ArticleEdit = () => {
   );
 };
 
-export const Route = createFileRoute("/articles/$slug/edit")({
+export const Route = createFileRoute("/articles/$slug_/edit")({
   component: ArticleEdit,
 });
 
