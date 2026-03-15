@@ -1,5 +1,4 @@
-import classNames from "classnames";
-import { NavLink } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 
 const ArticlesNav = ({
   items,
@@ -9,17 +8,16 @@ const ArticlesNav = ({
   return (
     <nav className="flex text-gray-200">
       {items.map((link, i) => (
-        <NavLink
+        <Link
           key={i}
-          to={link.link}
-          className={({ isActive }) =>
-            classNames("px-4 py-2 -mb-[1px]", {
-              "text-green-500 border-b-2 border-green-500": isActive,
-            })
-          }
+          to={link.link as never}
+          className="px-4 py-2 -mb-[1px]"
+          activeProps={{
+            className: "text-green-500 border-b-2 border-green-500",
+          }}
         >
           {link.name}
-        </NavLink>
+        </Link>
       ))}
     </nav>
   );

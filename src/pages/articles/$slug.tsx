@@ -8,12 +8,11 @@ import { UserContext } from "@/contexts/user";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useContext } from "react";
-import { useParams } from "react-router-dom";
 
 const ArticleShow = () => {
   const userStore = useContext(UserContext);
   const navigate = useNavigate();
-  const { slug } = useParams<{ slug: string }>();
+  const { slug } = Route.useParams();
 
   const articlesQuery = useQuery({
     queryFn: () => getArticle(slug!),

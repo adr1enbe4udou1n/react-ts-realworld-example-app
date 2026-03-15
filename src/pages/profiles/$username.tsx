@@ -1,10 +1,9 @@
 import AuthorLayout from "@/components/AuthorLayout";
 import PostsList from "@/components/PostsList";
 import { createFileRoute } from "@tanstack/react-router";
-import { useParams } from "react-router-dom";
 
 const ProfileShow = () => {
-  const { username } = useParams<{ username: string }>();
+  const { username } = Route.useParams();
 
   if (!username) {
     return null;

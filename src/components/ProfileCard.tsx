@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { type Profile } from "@/api";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 import classNames from "classnames";
 
 const ProfileCard = ({
@@ -21,7 +21,8 @@ const ProfileCard = ({
 
   return (
     <Link
-      to={`/profiles/${author.username}`}
+      to="/profiles/$username"
+      params={{ username: author.username }}
       className={classNames(className, "flex items-center gap-3")}
     >
       {inline ? (

@@ -5,11 +5,10 @@ import RequireAuth from "@/components/guards/RequireAuth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 
 const ArticleEdit = () => {
   const queryClient = useQueryClient();
-  const { slug } = useParams<{ slug: string }>();
+  const { slug } = Route.useParams();
   const navigate = useNavigate();
 
   const [form, setForm] = useState<{

@@ -1,8 +1,6 @@
 import { UserContext } from "@/contexts/user";
 import { Link, useNavigate } from "@tanstack/react-router";
-import classNames from "classnames";
 import { useContext } from "react";
-import { NavLink } from "react-router-dom";
 
 const AppHeader = () => {
   const userStore = useContext(UserContext);
@@ -46,20 +44,17 @@ const AppHeader = () => {
           {menuItems.map((item, i) => {
             if (item.link) {
               return (
-                <NavLink
+                <Link
                   key={i}
-                  to={item.link}
-                  className={({ isActive }) =>
-                    classNames("flex items-center", {
-                      "opacity-50": !isActive,
-                    })
-                  }
+                  to={item.link as never}
+                  className="flex items-center"
+                  inactiveProps={{ className: "opacity-50" }}
                 >
                   {item.icon && (
                     <i className={`inline-block mr-2 ${item.icon}`}></i>
                   )}
                   {item.name}
-                </NavLink>
+                </Link>
               );
             } else {
               return (
