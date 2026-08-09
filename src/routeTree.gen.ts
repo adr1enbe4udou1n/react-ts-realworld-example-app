@@ -9,30 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './pages/__root'
-import { Route as SettingsRouteImport } from './pages/settings'
-import { Route as RegisterRouteImport } from './pages/register'
-import { Route as LoginRouteImport } from './pages/login'
-import { Route as FeedRouteImport } from './pages/feed'
 import { Route as IndexRouteImport } from './pages/index'
-import { Route as ProfilesUsernameRouteImport } from './pages/profiles/$username'
-import { Route as ArticlesCreateRouteImport } from './pages/articles/create'
+import { Route as FeedRouteImport } from './pages/feed'
+import { Route as LoginRouteImport } from './pages/login'
+import { Route as RegisterRouteImport } from './pages/register'
+import { Route as SettingsRouteImport } from './pages/settings'
 import { Route as ArticlesSlugRouteImport } from './pages/articles/$slug'
-import { Route as ProfilesUsernameFavoritesRouteImport } from './pages/profiles/$username_.favorites'
+import { Route as ArticlesCreateRouteImport } from './pages/articles/create'
+import { Route as ProfilesUsernameRouteImport } from './pages/profiles/$username'
 import { Route as ArticlesSlugEditRouteImport } from './pages/articles/$slug_.edit'
+import { Route as ProfilesUsernameFavoritesRouteImport } from './pages/profiles/$username_.favorites'
 
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RegisterRoute = RegisterRouteImport.update({
-  id: '/register',
-  path: '/register',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FeedRoute = FeedRouteImport.update({
@@ -40,14 +30,24 @@ const FeedRoute = FeedRouteImport.update({
   path: '/feed',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProfilesUsernameRoute = ProfilesUsernameRouteImport.update({
-  id: '/profiles/$username',
-  path: '/profiles/$username',
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
+  id: '/articles/$slug',
+  path: '/articles/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArticlesCreateRoute = ArticlesCreateRouteImport.update({
@@ -55,9 +55,14 @@ const ArticlesCreateRoute = ArticlesCreateRouteImport.update({
   path: '/articles/create',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
-  id: '/articles/$slug',
-  path: '/articles/$slug',
+const ProfilesUsernameRoute = ProfilesUsernameRouteImport.update({
+  id: '/profiles/$username',
+  path: '/profiles/$username',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticlesSlugEditRoute = ArticlesSlugEditRouteImport.update({
+  id: '/articles/$slug_/edit',
+  path: '/articles/$slug/edit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfilesUsernameFavoritesRoute =
@@ -66,11 +71,6 @@ const ProfilesUsernameFavoritesRoute =
     path: '/profiles/$username/favorites',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ArticlesSlugEditRoute = ArticlesSlugEditRouteImport.update({
-  id: '/articles/$slug_/edit',
-  path: '/articles/$slug/edit',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -163,25 +163,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/register': {
-      id: '/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof RegisterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/feed': {
@@ -191,25 +177,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FeedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/profiles/$username': {
-      id: '/profiles/$username'
-      path: '/profiles/$username'
-      fullPath: '/profiles/$username'
-      preLoaderRoute: typeof ProfilesUsernameRouteImport
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/articles/create': {
-      id: '/articles/create'
-      path: '/articles/create'
-      fullPath: '/articles/create'
-      preLoaderRoute: typeof ArticlesCreateRouteImport
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/articles/$slug': {
@@ -219,11 +205,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArticlesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/profiles/$username_/favorites': {
-      id: '/profiles/$username_/favorites'
-      path: '/profiles/$username/favorites'
-      fullPath: '/profiles/$username/favorites'
-      preLoaderRoute: typeof ProfilesUsernameFavoritesRouteImport
+    '/articles/create': {
+      id: '/articles/create'
+      path: '/articles/create'
+      fullPath: '/articles/create'
+      preLoaderRoute: typeof ArticlesCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profiles/$username': {
+      id: '/profiles/$username'
+      path: '/profiles/$username'
+      fullPath: '/profiles/$username'
+      preLoaderRoute: typeof ProfilesUsernameRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/articles/$slug_/edit': {
@@ -231,6 +224,13 @@ declare module '@tanstack/react-router' {
       path: '/articles/$slug/edit'
       fullPath: '/articles/$slug/edit'
       preLoaderRoute: typeof ArticlesSlugEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profiles/$username_/favorites': {
+      id: '/profiles/$username_/favorites'
+      path: '/profiles/$username/favorites'
+      fullPath: '/profiles/$username/favorites'
+      preLoaderRoute: typeof ProfilesUsernameFavoritesRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
