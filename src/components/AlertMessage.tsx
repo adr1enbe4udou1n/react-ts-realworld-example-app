@@ -21,11 +21,11 @@ const AlertMessage = ({
 
         <p className="font-bold">{errors.title}</p>
         <ul>
-          {Object.keys(errors.errors).map((name) => (
+          {Object.entries(errors.errors ?? {}).map(([name, messages]) => (
             <li key={name}>
               <strong>{name} :</strong>
               <ul className="list-inside list-disc">
-                {errors?.errors[name]?.map((error) => (
+                {messages.map((error) => (
                   <li key={error}>{error}</li>
                 ))}
               </ul>
