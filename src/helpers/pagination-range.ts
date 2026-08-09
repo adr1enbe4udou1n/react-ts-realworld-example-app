@@ -1,7 +1,7 @@
 const getRange = (start: number, end: number) => {
   return Array(end - start + 1)
     .fill(null)
-    .map((v, i) => i + start);
+    .map((_, i) => i + start);
 };
 
 const usePagesBuilder = (currentPage: number, pageCount: number) => {
