@@ -23,7 +23,3 @@ dist-ssr
 
 coverage
 .scannerwork
-
-# Generated source files
-src/api/client/
-*.gen.ts
