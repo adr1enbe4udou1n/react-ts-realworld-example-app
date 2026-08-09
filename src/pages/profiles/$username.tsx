@@ -19,5 +19,3 @@ const ProfileShow = () => {
 export const Route = createFileRoute("/profiles/$username")({
   component: ProfileShow,
 });
-
-export default ProfileShow;

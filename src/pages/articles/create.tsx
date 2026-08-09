@@ -101,5 +101,3 @@ const ArticleCreate = () => {
 export const Route = createFileRoute("/articles/create")({
   component: ArticleCreate,
 });
-
-export default ArticleCreate;

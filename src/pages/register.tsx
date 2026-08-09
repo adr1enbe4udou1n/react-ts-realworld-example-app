@@ -82,5 +82,3 @@ const Register = () => {
 export const Route = createFileRoute("/register")({
   component: Register,
 });
-
-export default Register;

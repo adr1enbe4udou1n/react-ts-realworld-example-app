@@ -71,5 +71,3 @@ const Login = () => {
 export const Route = createFileRoute("/login")({
   component: Login,
 });
-
-export default Login;

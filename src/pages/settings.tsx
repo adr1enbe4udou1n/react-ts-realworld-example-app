@@ -111,5 +111,3 @@ const Settings = () => {
 export const Route = createFileRoute("/settings")({
   component: Settings,
 });
-
-export default Settings;

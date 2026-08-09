@@ -13,5 +13,3 @@ const Feed = () => {
 export const Route = createFileRoute("/feed")({
   component: Feed,
 });
-
-export default Feed;

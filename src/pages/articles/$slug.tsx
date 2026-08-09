@@ -94,5 +94,3 @@ const ArticleShow = () => {
 export const Route = createFileRoute("/articles/$slug")({
   component: ArticleShow,
 });
-
-export default ArticleShow;

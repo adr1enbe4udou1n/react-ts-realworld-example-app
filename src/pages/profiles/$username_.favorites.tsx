@@ -19,5 +19,3 @@ const ProfileFavorites = () => {
 export const Route = createFileRoute("/profiles/$username_/favorites")({
   component: ProfileFavorites,
 });
-
-export default ProfileFavorites;
