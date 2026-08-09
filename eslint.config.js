@@ -4,6 +4,7 @@ import tseslint from "typescript-eslint";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 
 export default [
+  { ignores: ["src/api/client/**"] },
   { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
   { settings: { react: { version: "detect" } } },
   { languageOptions: { globals: globals.browser } },
