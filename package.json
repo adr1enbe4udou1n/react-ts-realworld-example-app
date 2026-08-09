@@ -10,7 +10,7 @@
     "test:unit": "vitest run --coverage",
     "format": "prettier --write src/",
     "lint": "eslint src/**/*.{ts,tsx}",
-    "openapi": "openapi-typescript http://localhost:5000/api/v1/docs.json --output src/api/conduit.ts"
+    "openapi": "openapi-typescript http://localhost:5000/api/v1/swagger.json --output src/api/conduit.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.101.4",

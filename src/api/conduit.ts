@@ -4,6 +4,134 @@
  */
 
 export interface paths {
+  "/user": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get current user
+     * @description Gets the currently logged-in user
+     */
+    get: operations["GetCurrentUser"];
+    /**
+     * Update current user
+     * @description Updated user information for current user
+     */
+    put: operations["UpdateCurrentUser"];
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/users": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Register a new user
+     * @description Register a new user
+     */
+    post: operations["CreateUser"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/users/login": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Existing user login
+     * @description Login for existing user
+     */
+    post: operations["Login"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/profiles/{username}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get a profile
+     * @description Get a profile of a user of the system. Auth is optional
+     */
+    get: operations["GetProfileByUsername"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/profiles/{username}/follow": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Follow a user
+     * @description Follow a user by username
+     */
+    post: operations["FollowUserByUsername"];
+    /**
+     * Unfollow a user
+     * @description Unfollow a user by username
+     */
+    delete: operations["UnfollowUserByUsername"];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/tags": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get tags
+     * @description Get tags. Auth not required
+     */
+    get: operations["GetTags"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/articles": {
     parameters: {
       query?: never;
@@ -76,6 +204,30 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/articles/{slug}/favorite": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Favorite an article
+     * @description Favorite an article. Auth is required
+     */
+    post: operations["CreateArticleFavorite"];
+    /**
+     * Unfavorite an article
+     * @description Unfavorite an article. Auth is required
+     */
+    delete: operations["DeleteArticleFavorite"];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/articles/{slug}/comments": {
     parameters: {
       query?: never;
@@ -120,281 +272,125 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  "/articles/{slug}/favorite": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Favorite an article
-     * @description Favorite an article. Auth is required
-     */
-    post: operations["CreateArticleFavorite"];
-    /**
-     * Unfavorite an article
-     * @description Unfavorite an article. Auth is required
-     */
-    delete: operations["DeleteArticleFavorite"];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/profiles/{username}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get a profile
-     * @description Get a profile of a user of the system. Auth is optional
-     */
-    get: operations["GetProfileByUsername"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/profiles/{username}/follow": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Follow a user
-     * @description Follow a user by username
-     */
-    post: operations["FollowUserByUsername"];
-    /**
-     * Unfollow a user
-     * @description Unfollow a user by username
-     */
-    delete: operations["UnfollowUserByUsername"];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/tags": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get tags
-     * @description Get tags. Auth not required
-     */
-    get: operations["GetTags"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/user": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get current user
-     * @description Gets the currently logged-in user
-     */
-    get: operations["GetCurrentUser"];
-    /**
-     * Update current user
-     * @description Updated user information for current user
-     */
-    put: operations["UpdateCurrentUser"];
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/users": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Register a new user
-     * @description Register a new user
-     */
-    post: operations["CreateUser"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/users/login": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Existing user login
-     * @description Login for existing user
-     */
-    post: operations["Login"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
-    Article: {
+    ArticleDto: {
       title: string;
       slug: string;
       description: string;
       body: string;
       /** Format: date-time */
-      createdAt: string;
+      createdAt?: unknown;
       /** Format: date-time */
-      updatedAt: string;
-      tagList: string[];
-      author: components["schemas"]["Profile"];
-      favorited: boolean;
+      updatedAt?: unknown;
+      tagList?: string[];
+      author: components["schemas"]["ProfileDto"];
+      favorited?: boolean;
       /** Format: int32 */
-      favoritesCount: number;
+      favoritesCount?: number | string;
     };
-    Comment: {
+    CommentDto: {
       /** Format: int32 */
-      id: number;
+      id?: number | string;
       body: string;
       /** Format: date-time */
-      createdAt: string;
+      createdAt?: unknown;
       /** Format: date-time */
-      updatedAt: string;
-      author: components["schemas"]["Profile"];
+      updatedAt?: unknown;
+      author: components["schemas"]["ProfileDto"];
     };
     HttpValidationProblemDetails: {
-      type?: string | null;
-      title?: string | null;
+      type?: null | string;
+      title?: null | string;
       /** Format: int32 */
-      status?: number | null;
-      detail?: string | null;
-      instance?: string | null;
-      errors: {
-        [key: string]: string[] | undefined;
+      status?: null | number | string;
+      detail?: null | string;
+      instance?: null | string;
+      errors?: {
+        [key: string]: string[];
       };
-      [key: string]: unknown;
     };
-    LoginUser: {
+    LoginUserDto: {
       email: string;
       password: string;
     };
     LoginUserRequest: {
-      user: components["schemas"]["LoginUser"];
+      user: components["schemas"]["LoginUserDto"];
     };
     MultipleArticlesResponse: {
-      articles: components["schemas"]["Article"][];
+      articles: components["schemas"]["ArticleDto"][];
       /** Format: int32 */
-      articlesCount: number;
+      articlesCount: number | string;
     };
     MultipleCommentsResponse: {
-      comments: components["schemas"]["Comment"][];
+      comments: components["schemas"]["CommentDto"][];
     };
-    NewArticle: {
+    NewArticleDto: {
       title: string;
       description: string;
       body: string;
-      tagList: string[];
+      tagList?: string[];
     };
     NewArticleRequest: {
-      article: components["schemas"]["NewArticle"];
+      article: components["schemas"]["NewArticleDto"];
     };
-    NewComment: {
+    NewCommentDto: {
       body: string;
     };
     NewCommentRequest: {
-      comment: components["schemas"]["NewComment"];
+      comment: components["schemas"]["NewCommentDto"];
     };
-    NewUser: {
+    NewUserDto: {
       email: string;
       password: string;
       username: string;
     };
     NewUserRequest: {
-      user: components["schemas"]["NewUser"];
+      user: components["schemas"]["NewUserDto"];
     };
-    Profile: {
+    ProfileDto: {
       username: string;
-      bio?: string | null;
-      image?: string | null;
-      following: boolean;
+      bio?: null | string;
+      image?: null | string;
+      following?: boolean;
     };
     ProfileResponse: {
-      profile: components["schemas"]["Profile"];
+      profile: components["schemas"]["ProfileDto"];
     };
     SingleArticleResponse: {
-      article: components["schemas"]["Article"];
-    };
-    SingleCommentResponse: {
-      comment: components["schemas"]["Comment"];
+      article: components["schemas"]["ArticleDto"];
     };
     TagsResponse: {
       tags: string[];
     };
-    UpdateArticle: {
-      title?: string | null;
-      description?: string | null;
-      body?: string | null;
+    UpdateArticleDto: {
+      title?: null | string;
+      description?: null | string;
+      body?: null | string;
     };
     UpdateArticleRequest: {
-      article: components["schemas"]["UpdateArticle"];
+      article: components["schemas"]["UpdateArticleDto"];
     };
-    UpdateUser: {
-      username?: string | null;
-      email?: string | null;
-      bio?: string | null;
-      image?: string | null;
+    UpdateUserDto: {
+      username?: null | string;
+      email?: null | string;
+      bio?: null | string;
+      image?: null | string;
     };
     UpdateUserRequest: {
-      user: components["schemas"]["UpdateUser"];
+      user: components["schemas"]["UpdateUserDto"];
     };
-    User: {
+    UserDto: {
       email: string;
       username: string;
-      bio?: string | null;
-      image?: string | null;
+      bio?: null | string;
+      image?: null | string;
       token: string;
     };
     UserResponse: {
-      user: components["schemas"]["User"];
+      user: components["schemas"]["UserDto"];
     };
   };
   responses: never;
@@ -405,6 +401,203 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+  GetCurrentUser: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["UserResponse"];
+        };
+      };
+    };
+  };
+  UpdateCurrentUser: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description User details to update. At least <strong>one</strong> field is required. */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateUserRequest"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+    };
+  };
+  CreateUser: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description Details of the new user to register */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["NewUserRequest"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["UserResponse"];
+        };
+      };
+    };
+  };
+  Login: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description Credentials to use */
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["LoginUserRequest"];
+      };
+    };
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Bad Request */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
+        };
+      };
+    };
+  };
+  GetProfileByUsername: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        username: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ProfileResponse"];
+        };
+      };
+    };
+  };
+  FollowUserByUsername: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Username of the profile you want to follow */
+        username: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ProfileResponse"];
+        };
+      };
+    };
+  };
+  UnfollowUserByUsername: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Username of the profile you want to unfollow */
+        username: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ProfileResponse"];
+        };
+      };
+    };
+  };
+  GetTags: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["TagsResponse"];
+        };
+      };
+    };
+  };
   GetArticles: {
     parameters: {
       query?: {
@@ -415,9 +608,9 @@ export interface operations {
         /** @description Filter by tag */
         tag?: string;
         /** @description Limit number of articles returned (default is 20) */
-        limit?: number;
+        limit?: number | string;
         /** @description Offset/skip number of articles (default is 0) */
-        offset?: number;
+        offset?: number | string;
       };
       header?: never;
       path?: never;
@@ -455,9 +648,7 @@ export interface operations {
         headers: {
           [name: string]: unknown;
         };
-        content: {
-          "application/json": components["schemas"]["SingleArticleResponse"];
-        };
+        content?: never;
       };
       /** @description Bad Request */
       400: {
@@ -468,29 +659,15 @@ export interface operations {
           "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
         };
       };
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Forbidden */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
     };
   };
   GetArticlesFeed: {
     parameters: {
       query?: {
         /** @description Limit number of articles returned (default is 20) */
-        limit?: number;
+        limit?: number | string;
         /** @description Offset/skip number of articles (default is 0) */
-        offset?: number;
+        offset?: number | string;
       };
       header?: never;
       path?: never;
@@ -506,20 +683,6 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["MultipleArticlesResponse"];
         };
-      };
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Forbidden */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
       };
     };
   };
@@ -568,9 +731,7 @@ export interface operations {
         headers: {
           [name: string]: unknown;
         };
-        content: {
-          "application/json": components["schemas"]["SingleArticleResponse"];
-        };
+        content?: never;
       };
       /** @description Bad Request */
       400: {
@@ -580,20 +741,6 @@ export interface operations {
         content: {
           "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
         };
-      };
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Forbidden */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
       };
     };
   };
@@ -616,19 +763,51 @@ export interface operations {
         };
         content?: never;
       };
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
+    };
+  };
+  CreateArticleFavorite: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Slug of the article that you want to favorite */
+        slug: string;
       };
-      /** @description Forbidden */
-      403: {
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
         headers: {
           [name: string]: unknown;
         };
-        content?: never;
+        content: {
+          "application/json": components["schemas"]["SingleArticleResponse"];
+        };
+      };
+    };
+  };
+  DeleteArticleFavorite: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description Slug of the article that you want to unfavorite */
+        slug: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description OK */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["SingleArticleResponse"];
+        };
       };
     };
   };
@@ -676,9 +855,7 @@ export interface operations {
         headers: {
           [name: string]: unknown;
         };
-        content: {
-          "application/json": components["schemas"]["SingleCommentResponse"];
-        };
+        content?: never;
       };
       /** @description Bad Request */
       400: {
@@ -688,20 +865,6 @@ export interface operations {
         content: {
           "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
         };
-      };
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Forbidden */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
       };
     };
   };
@@ -713,7 +876,7 @@ export interface operations {
         /** @description Slug of the article that you want to delete a comments for */
         slug: string;
         /** @description ID of the comment you want to delete */
-        commentId: number;
+        commentId: number | string;
       };
       cookie?: never;
     };
@@ -725,351 +888,6 @@ export interface operations {
           [name: string]: unknown;
         };
         content?: never;
-      };
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Forbidden */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-    };
-  };
-  CreateArticleFavorite: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description Slug of the article that you want to favorite */
-        slug: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["SingleArticleResponse"];
-        };
-      };
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Forbidden */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-    };
-  };
-  DeleteArticleFavorite: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description Slug of the article that you want to unfavorite */
-        slug: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["SingleArticleResponse"];
-        };
-      };
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Forbidden */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-    };
-  };
-  GetProfileByUsername: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        username: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ProfileResponse"];
-        };
-      };
-    };
-  };
-  FollowUserByUsername: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description Username of the profile you want to follow */
-        username: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ProfileResponse"];
-        };
-      };
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Forbidden */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-    };
-  };
-  UnfollowUserByUsername: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        /** @description Username of the profile you want to unfollow */
-        username: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ProfileResponse"];
-        };
-      };
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Forbidden */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-    };
-  };
-  GetTags: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["TagsResponse"];
-        };
-      };
-    };
-  };
-  GetCurrentUser: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["UserResponse"];
-        };
-      };
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Forbidden */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-    };
-  };
-  UpdateCurrentUser: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description User details to update. At least <strong>one</strong> field is required. */
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["UpdateUserRequest"];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["UserResponse"];
-        };
-      };
-      /** @description Bad Request */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
-        };
-      };
-      /** @description Unauthorized */
-      401: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Forbidden */
-      403: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-    };
-  };
-  CreateUser: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description Details of the new user to register */
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["NewUserRequest"];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["UserResponse"];
-        };
-      };
-    };
-  };
-  Login: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** @description Credentials to use */
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["LoginUserRequest"];
-      };
-    };
-    responses: {
-      /** @description OK */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["UserResponse"];
-        };
-      };
-      /** @description Bad Request */
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/problem+json": components["schemas"]["HttpValidationProblemDetails"];
-        };
       };
     };
   };
