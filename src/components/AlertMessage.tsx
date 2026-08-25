@@ -19,7 +19,7 @@ const AlertMessage = ({
           <i className="i-carbon-close block" />
         </button>
 
-        <p className="font-bold">{errors.title}</p>
+        {errors.title && <p className="font-bold">{errors.title}</p>}
         <ul>
           {Object.entries(errors.errors ?? {}).map(([name, messages]) => (
             <li key={name}>

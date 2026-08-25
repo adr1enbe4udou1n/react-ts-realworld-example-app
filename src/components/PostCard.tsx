@@ -1,4 +1,4 @@
-import { type Article } from "@/api";
+import { type ArticlePreview } from "@/api";
 import classNames from "classnames";
 import FavoriteArticle from "./FavoriteArticle";
 import ProfileCard from "./ProfileCard";
@@ -8,7 +8,7 @@ const PostCard = ({
   article,
   tag,
 }: {
-  article: Article;
+  article: ArticlePreview;
   tag: string | null;
 }) => {
   return (

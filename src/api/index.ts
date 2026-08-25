@@ -20,7 +20,7 @@ import {
   updateCurrentUser,
   type Article,
   type Comment,
-  type HttpValidationProblemDetails as ValidationProblemDetails,
+  type GenericErrorModel,
   type LoginUser,
   type NewArticle,
   type NewComment,
@@ -42,6 +42,8 @@ client.interceptors.request.use((request) => {
   return request;
 });
 
+type ValidationProblemDetails = GenericErrorModel & { title?: string };
+type ArticlePreview = Omit<Article, "body">;
 type HandleValidation = (error: ValidationProblemDetails | undefined) => void;
 
 const getArticles = (query: {
@@ -149,9 +151,11 @@ const createComment = (
     },
   );
 const deleteComment = (slug: string, commentId: number) =>
-  deleteArticleComment({ path: { slug, commentId } });
+  deleteArticleComment({ path: { slug, id: commentId } });
 
-const favoriteArticleToggle = async (article: Article) => {
+const favoriteArticleToggle = async (
+  article: Pick<Article, "favorited" | "slug">,
+) => {
   if (article.favorited) {
     await unfavoriteArticle(article.slug);
     return;
@@ -169,6 +173,7 @@ const followProfileToggle = async (profile: Profile) => {
 
 export type {
   Article,
+  ArticlePreview,
   Profile,
   Comment,
   User,

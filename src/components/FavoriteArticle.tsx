@@ -1,4 +1,4 @@
-import { type Article, favoriteArticleToggle } from "@/api";
+import { type ArticlePreview, favoriteArticleToggle } from "@/api";
 import { UserContext } from "@/contexts/user";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
@@ -9,7 +9,7 @@ const FavoriteArticle = ({
   article,
   full = false,
 }: {
-  article: Article;
+  article: ArticlePreview;
   full?: boolean;
 }) => {
   const queryClient = useQueryClient();
